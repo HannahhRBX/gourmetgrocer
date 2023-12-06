@@ -1,11 +1,15 @@
 <?php
 
+
+
 class Controllers {
 
     // Properties to hold database, members, and equipment instances
     protected $db = null;
     protected $members = null;
     protected $equipment = null;
+    protected $equipment2 = null;
+    protected $routing = null;
 
     // Constructor method for the Controllers class
     public function __construct()

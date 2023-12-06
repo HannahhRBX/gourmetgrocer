@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $member = $controllers->members()->register_member($args);
     if ($member) {
       // Redirect to login page on successful registration
-      redirect("login", ["error" => "Please login with your new account"]);
+      RoutingController::redirect("login", ["error" => "Please login with your new account"]); // Redirect admin users
     } else {
       // Set error message if email is already registered
       $message = "Email already registered.";
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             <div class="card-body p-5 text-center">
 
               <h3 class="mb-2">Register</h3>
-              <p>test</p>
+              <p></p>
               <div class="form-outline mb-4">
                 <input required type="text" id="fname" name="fname" class="form-control form-control-lg" placeholder="Firstname" value="<?= htmlspecialchars($fname['value'] ?? '') ?>"/>
                 <small class="text-danger"><?= htmlspecialchars($fname['error'] ?? '') ?></small>
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 <small class="text-danger"><?= htmlspecialchars($password['error'] ?? '') ?></small>
               </div>
 
-              <button class="btn btn-primary btn-lg w-100 mb-4" type="submit">Register</button>
+              <button class="btn btn-primary btn-lg w-100 mb-4" type="submit" id="register">Register</button>
               <a class="btn btn-secondary btn-lg w-100" type="submit" href="./login.php" >Already got an account?</a>
 
               <?php if ($message): ?>

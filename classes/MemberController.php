@@ -1,5 +1,7 @@
 <?php
 
+
+
 // Class for handling member-related operations
 class MemberController {
 
@@ -22,15 +24,31 @@ class MemberController {
         // Execute the query and return the fetched member record
         return $this->db->runSQL($sql, $args)->fetch();
     }
+    
+    public function get_role_by_userid(int $id)
+    {
+        // SQL query to get a user's role ID by its user ID
+       
+        $sql = "SELECT role_id FROM user_roles WHERE user_id = :user_id";
+        $args = ['user_id' => $id];
+        // Execute the query and return the fetched member record
+        return $this->db->runSQL($sql, $args)->fetch()["role_id"];
 
+    }
+
+   
     // Method to retrieve a member record by email
     public function get_member_by_email(string $email)
     {
         // SQL query to select a member by email
         $sql = "SELECT * FROM users WHERE email = :email";
         $args = ['email' => $email];
+        
         // Execute the query and return the fetched member record
-        return $this->db->runSQL($sql, $args)->fetch();
+        $getUserData = $this->db->runSQL($sql, $args)->fetch();
+        $role = $this->get_role_by_userid($getUserData['ID']);
+        $getUserData['role_id'] = $role;
+        return $getUserData;
     }
 
     // Method to retrieve all member records

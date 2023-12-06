@@ -5,7 +5,7 @@ session_start();
 session_unset(); 
 
 // Include the functions file for utility functions
-require_once './inc/functions.php';
+require getcwd().'/inc/functions.php';
 
 // Initialize variables for message, email, and password
 $message = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : '';
@@ -37,11 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
          $_SESSION['user'] = $member;
          //echo var_dump($member), $member['user_type'];
          // Redirect based on user type
-         if ($member['user_type'] === 'admin') {
-          redirect('.\Inventory.php'); // Redirect admin users
-      } else {
-          redirect('member'); // Redirect non-admin users
-      }
+         echo var_dump($member);
+         if ($member['role_id'] == 2) {
+          RoutingController::redirect('.\AdminPanel'); // Redirect admin users
+          
+
+          } else {
+            RoutingController::redirect('member'); // Redirect non-admin users
+          }
       }
 
     }

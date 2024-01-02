@@ -79,10 +79,18 @@ class equipmentController {
         // Execute the query and return all results
         return $this->db->runSQL($sql)->fetchAll();
     }
-
+    public function delete_image(int $id){
+        $imagePath = $this->get_equipment_by_id($id)["image"]; //Get image path directly through SQL to prevent attacker from inputting any file path into function parameters
+        unlink($imagePath);
+    }
     // Function to update an existing equipment entry in the database
     public function update_equipment(array $equipment)
     {
+        $getImg = $this->get_equipment_by_id($equipment['id'])["image"];
+
+        if ($equipment['image'] != $getImg){ //Make sure to not delete image if image stays the same
+            $this->delete_image($equipment["id"]);
+        }
         // SQL query to update equipment data
         $sql = "UPDATE equipments SET name = :name, description = :description, image = :image WHERE id = :id";
         
@@ -93,8 +101,7 @@ class equipmentController {
     // Function to delete a specific equipment entry by its ID
     public function delete_equipment(int $id)
     {
-        $imagePath = $this->get_equipment_by_id($id)["image"]; //Get image path directly through SQL to prevent attacker from inputting any file path into function parameters
-        unlink($imagePath);
+        $this->delete_image($id);
         // SQL query to delete equipment data by ID
         $sql = "DELETE FROM equipments WHERE id = :id";
         $args = ['id' => $id];

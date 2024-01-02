@@ -14,7 +14,7 @@ if ($userRole == 'admin'){
             $item = $controllers->equipment()->create_equipment(array('name'=>$addItemName,'description'=>$addItemDescription,'image'=>$fileResult["Destination"]));
             header("Location: Inventory.php?Upload%20Success");
         }else{
-            echo $fileResult["Status"];
+            header("Location: Inventory.php?".str_replace("+","%20",urlencode($fileResult["Status"])));
         }
         
     }

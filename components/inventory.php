@@ -104,3 +104,77 @@ $equipment = $controllers->equipment()->get_all_equipments();
   </div>
 </div>
 
+<!-- Delete Item Modal -->
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <form method="post" action="../deleteRecord.php">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this item?</script></h5>
+        
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-lg-12" style="padding-top: 15px;">
+        <div class="form-group" style="padding-bottom: 15px;">
+            <label class="form-label">Name: <?php echo $objectName; ?></label><br>
+            <label class="form-label">Description: <?php echo $objectDescription; ?></label><br>
+            <img src="<?= htmlspecialchars($objectImage) ?>"
+                             alt="Image of <?= htmlspecialchars($equip['description']) ?>" 
+                             style="width: 100px; height: auto;">   
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </div>
+      <input type="hidden" name="objectType" value="equipment">
+      <input type="hidden" name="objectId" value=<?php echo $objectId; ?>>
+    </form>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Item Modal -->
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit an Item</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-lg-12" style="padding-top: 15px;">
+      <form method="post" action="../updateRecord.php" enctype="multipart/form-data"> <!-- enctype to tell server that mutiple media types are being used -->
+        <div class="form-group">
+            <label for="exampleFormControlInput1" class="form-label">Item Name</label>
+            <input type="text" value="<?php echo $objectName ?>" class="form-control" name="editItemName" id="editItemName">
+            <!--small id="emailHelp" class="form-text text-muted">Description must be at least 10 characters.</small-->
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1" class="form-label">Item Description</label>
+            <textarea class="form-control" name="editItemDescription" id="editItemDescription" rows="3"><?php echo $objectDescription ?></textarea>
+        </div>
+        <div class="form-group" style="padding-bottom: 15px;">
+            <label class="form-label" for="customFile">Item Image</label><br>
+            <img src="<?= htmlspecialchars($objectImage) ?>"
+                             alt="Image of <?= htmlspecialchars($equip['description']) ?>" 
+                             style="width: 100px; height: auto;"><br>
+            <input type="file" class="form-control-md" name="editItemImage" id="editItemImage"/>
+        </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Update</button>
+            <input type="hidden" name="objectType" value="equipment">
+            <input type="hidden" name="objectId" value=<?php echo $objectId; ?>>
+            <input type="hidden" name="previousImage" value=<?php echo $objectImage; ?>>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+

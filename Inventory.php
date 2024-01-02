@@ -10,13 +10,25 @@ if ($userRole == 'admin'){
     if ($_SERVER['REQUEST_METHOD'] == 'GET'){
         $getInfo = urldecode($_SERVER['QUERY_STRING']);
         if ($getInfo != ''){
-        ?>
-        <div class="text-bg-success p-3">
-            <div class="card bg-success text-center">
-                <div class="card-body text-white"><h5><?php echo $getInfo; ?></h5></div>
-            </div>
-        </div>
-        <?php
+            if (str_contains($getInfo,"Success")){
+
+            
+                ?>
+                <div class="text-bg-success p-3">
+                    <div class="card bg-success text-center">
+                        <div class="card-body text-white"><h5><?php echo $getInfo; ?></h5></div>
+                    </div>
+                </div>
+            <?php
+            }else{
+                ?>
+                <div class="text-bg-danger p-3">
+                    <div class="card bg-danger text-center">
+                        <div class="card-body text-white"><h5><?php echo $getInfo; ?></h5></div>
+                    </div>
+                </div>
+                <?php
+            }
         }
     }elseif ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $actionType = $_POST['actionType'];

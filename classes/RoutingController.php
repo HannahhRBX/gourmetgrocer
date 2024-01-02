@@ -11,11 +11,11 @@ class RoutingController {
         return $page;
         exit;
     }
-
+    // Method to retrieve a member record by its ID
     public static function verify_member_is_admin()
     {
         $Result;
-        if (session_id() == '' || !isset($_SESSION) || session_status() === PHP_SESSION_NONE)
+        if (!isset($_SESSION['user']))
         {
             $Result = self::redirect('login', ["error" => "You need to be logged in to view this page"]); // Verifies if the user is admin, if not then redirect them back to login page
             
@@ -26,19 +26,6 @@ class RoutingController {
            
         }
         return $Result;
-    }
-    
-    // Retrieve role as string from session data
-    public static function verify_session_role()
-    {
-        if (session_id() == '' || !isset($_SESSION) || session_status() === PHP_SESSION_NONE || $_SESSION == null)
-        {
-            return '';
-        }elseif ($_SESSION['user']['role_id'] == 2){
-            return 'admin';
-        }else{
-            return 'member';
-        }
     }
 }
 ?>

@@ -44,13 +44,25 @@ class equipmentController {
         return $fileResult;
     }
 
+    // Function to add an equipment id and catagory id into the equipment_catagories table
+    public function add_equipment_to_catagory(array $Ids){
+        // SQL query to insert new equipment data into the equipments table
+        $sql = "INSERT INTO equipment_catagories(equipment_id, catagory_id)
+        VALUES (:equipment_id, :catagory_id);";
+        
+        // Execute the SQL query with the provided equipment data
+        $this->db->runSQL($sql, $Ids);
+        
+        // Return the ID of the last inserted equipment
+        return $this->db->lastInsertId();
+    }
     // Function to create a new equipment entry in the database
     public function create_equipment(array $equipment) 
     {
         
         // SQL query to insert new equipment data into the equipments table
-        $sql = "INSERT INTO equipments(name, description, image)
-        VALUES (:name, :description, :image);";
+        $sql = "INSERT INTO equipments(name, description, image, stock, buy_price, sell_price)
+        VALUES (:name, :description, :image, :stock, :buy_price, :sell_price);";
         
         // Execute the SQL query with the provided equipment data
         $this->db->runSQL($sql, $equipment);
@@ -59,6 +71,17 @@ class equipmentController {
         return $this->db->lastInsertId();
     }
 
+    // Method to retrieve a equipment's catagory ID by its user ID
+    public function get_catagory_by_equipmentid(int $id)
+    {
+        // SQL query to get a user's role id from the roles table
+       
+        $sql = "SELECT catagory_id FROM equipment_catagories WHERE equipment_id = :equipment_id";
+        $args = ['equipment_id' => $id];
+        // Execute the query and return the fetched member record
+        return $this->db->runSQL($sql, $args)->fetch()["catagory_id"];
+
+    }
     // Function to retrieve a specific equipment by its ID
     public function get_equipment_by_id(int $id)
     {
@@ -83,6 +106,16 @@ class equipmentController {
         $imagePath = $this->get_equipment_by_id($id)["image"]; //Get image path directly through SQL to prevent attacker from inputting any file path into function parameters
         unlink($imagePath);
     }
+
+    // Function to update an existing equipment_catagory entry in the database
+    public function update_equipment_catagory(array $Ids)
+    {
+        // SQL query to update equipment_catagory data
+        $sql = "UPDATE equipment_catagories SET catagory_id = :catagory_id WHERE equipment_id = :equipment_id";
+        
+        // Execute the update query with the provided equipment_catagory data
+        return $this->db->runSQL($sql, $Ids)->execute();
+    }
     // Function to update an existing equipment entry in the database
     public function update_equipment(array $equipment)
     {
@@ -92,7 +125,7 @@ class equipmentController {
             $this->delete_image($equipment["id"]);
         }
         // SQL query to update equipment data
-        $sql = "UPDATE equipments SET name = :name, description = :description, image = :image WHERE id = :id";
+        $sql = "UPDATE equipments SET name = :name, description = :description, stock = :stock, buy_price = :buy_price, sell_price = :sell_price, image = :image WHERE id = :id";
         
         // Execute the update query with the provided equipment data
         return $this->db->runSQL($sql, $equipment)->execute();

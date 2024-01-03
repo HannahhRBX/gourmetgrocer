@@ -10,6 +10,7 @@ class Controllers {
     protected $equipment = null;
     protected $equipment2 = null;
     protected $routing = null;
+    protected $catagories = null;
 
     // Constructor method for the Controllers class
     public function __construct()
@@ -56,5 +57,15 @@ class Controllers {
             $this->members = new MemberController($this->db);
         }
         return $this->members;
+    }
+
+    // Method to get or create a catagory controller
+    public function catagories()
+    {
+        // Check if catagories controller is null, if so, create a new instance
+        if ($this->catagories === null) {
+            $this->catagories = new catagoryController($this->db);
+        }
+        return $this->catagories;
     }
 }

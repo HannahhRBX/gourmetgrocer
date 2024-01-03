@@ -26,10 +26,10 @@
         <a class="nav-link" href="./index.php">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="./Inventory.php">Equipment</a>
+        <a class="nav-link" href="./Inventory.php">Inventory</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="./login.php">Login</a>
+        <a class="nav-link" href="./login.php"><?php session_start(); if (!isset($_SESSION['user'])){echo "Login";}else{echo "Logout";} ?></a>
       </li>
     </ul>
   </div>

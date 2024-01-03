@@ -14,8 +14,8 @@
 
 
 <?php
-session_start();
-require __DIR__ . "/components/inventory.php";
+
+require __DIR__ . "/inc/functions.php";
 require __DIR__ . "/inc/footer.php";
 
 RoutingController::verify_member_is_admin();

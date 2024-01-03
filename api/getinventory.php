@@ -11,10 +11,14 @@
         {
         $newArray = array();
             $record = array();
+            
             foreach ($field as $index=>$value)
             {
-                $record[$index] = $value;
+                $record[$index] = htmlspecialchars_decode($value, ENT_QUOTES);
             }
+            $catagoryId = $controllers->equipment()->get_catagory_by_equipmentid($record['id']);
+            $catagory = $controllers->catagories()->get_catagory_by_id($catagoryId);
+            $record['catagory'] = htmlspecialchars_decode($catagory['name'], ENT_QUOTES);;
             array_push($post_arr['data'],$record);
         }
         echo json_encode($post_arr); //push to data table by conversion to JSON encode

@@ -1,4 +1,5 @@
 <?php
+    // Check if session is already running before starting
     if (session_id() == '' || !isset($_SESSION) || session_status() === PHP_SESSION_NONE){
         session_start();
     }
@@ -12,7 +13,6 @@
                 if (str_contains($file,"index.php")){
                     $found = true;
                 }
-                //echo $file;
             }
             if ($found == false){
                 $currentDirectory = dirname($currentDirectory); // Will keep going up a directory until the index is found.
@@ -21,7 +21,6 @@
             }
     
         }
-        //echo $currentDirectory;
         return $currentDirectory;
        
     }

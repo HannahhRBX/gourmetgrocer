@@ -25,9 +25,10 @@ class MemberController {
         return $this->db->runSQL($sql, $args)->fetch();
     }
     
+    // Method to retrieve a member role ID by its user ID
     public function get_role_by_userid(int $id)
     {
-        // SQL query to get a user's role ID by its user ID
+        // SQL query to get a user's role id from the roles table
        
         $sql = "SELECT role_id FROM user_roles WHERE user_id = :user_id";
         $args = ['user_id' => $id];

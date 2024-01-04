@@ -137,7 +137,7 @@ if ($userRole == 'admin'){
         </div>
         <div class="form-group" style="padding-bottom: 15px;">
             <label class="form-label" for="customFile">Item Image</label><br>
-            <input type="file" class="form-control-md" name="ItemImage" id="ItemImage"/>
+            <input type="file" class="form-control-md" name="ItemImage" id="ItemImageA"/>
         </div>
         </div>
         <div class="modal-footer">

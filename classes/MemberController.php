@@ -61,6 +61,15 @@ class MemberController {
         return $this->db->runSQL($sql)->fetchAll();
     }
 
+    // Function to update an existing user_role entry in the database
+    public function update_member_role(array $Ids)
+    {
+        // SQL query to update user_roles data
+        $sql = "UPDATE user_roles SET role_id = :role_id WHERE user_id = :user_id";
+        
+        // Execute the update query with the provided user_role data
+        return $this->db->runSQL($sql, $Ids)->execute();
+    }
     // Method to update an existing member record
     public function update_member(array $member)
     {

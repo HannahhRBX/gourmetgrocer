@@ -11,8 +11,12 @@ if ($userRole == 'admin'){
         $objectId = $_POST['objectId'];
         if ($objectType == "equipment"){
             $status = $controllers->equipment()->delete_equipment($objectId);
+            $header = "Inventory.php";
+        }elseif ($objectType == "user"){
+            $status = $controllers->members()->delete_member($objectId);
+            $header = "Users.php";
         }
-        header("Location: Inventory.php?Deletion%20Success");
+        header("Location: ".$header."?Deletion%20Success");
         // Process the submitted form data
         
         

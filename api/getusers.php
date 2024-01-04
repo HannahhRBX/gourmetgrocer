@@ -15,6 +15,9 @@
             {
                 $record[$index] = $value;
             }
+            $roleId = $controllers->members()->get_role_by_userid($record['ID']);
+            $role = $controllers->roles()->get_role_by_id($roleId);
+            $record['role'] = htmlspecialchars_decode($role['name'], ENT_QUOTES);;
             array_push($post_arr['data'],$record);
         }
         echo json_encode($post_arr); //push to data table by conversion to JSON encode

@@ -48,6 +48,19 @@ if ($userRole == 'admin'){
             }
             
             
+        }elseif ($objectType == "user"){
+            $userId = $_POST['objectId'];
+            $userFirstName = InputProcessor::processString($_POST['userFirstName'])['value'];
+            $userLastName = InputProcessor::processString($_POST['userLastName'])['value'];
+            $userEmail = $_POST['userEmail'];
+            $userRoleId = $_POST['userRole'];
+            $userArray = array('id'=>$userId,'firstname'=>$userFirstName,'lastname'=>$userLastName,'email'=>$userEmail);
+
+            $item = $controllers->members()->update_member($userArray);
+           
+            $userRole = $controllers->members()->update_member_role(array('user_id'=>$objectId,'role_id'=>$userRoleId));
+            header("Location: Users.php?Update%20Success");
+            
         }
         
         

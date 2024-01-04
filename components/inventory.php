@@ -116,7 +116,7 @@ $equipment = $controllers->equipment()->get_all_equipments();
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-danger">Delete</button>
+        <button type="submit" class="btn btn-danger" id="DeleteItem">Delete</button>
       </div>
       <input type="hidden" name="objectType" value="equipment">
       <input type="hidden" name="objectId" value=<?php echo $objectId; ?>>

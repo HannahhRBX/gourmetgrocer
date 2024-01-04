@@ -13,7 +13,7 @@ class RoutingTest extends \PHPUnit\Framework\TestCase // Use PHPUnit Test Class
             'email'=>'member@gmail.com',
             'createdOn'=>'2023-12-18 17:22:15',
             'modifiedOn'=>'2023-12-18 17:22:15',
-            'role_id'=>2,
+            'role_id'=>1,
         );
 
         require_once __DIR__.'/../../classes/RoutingController.php';

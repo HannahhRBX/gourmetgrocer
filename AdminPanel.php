@@ -6,7 +6,7 @@
                 <a class="btn btn-primary btn-lg w-80 mb-4" type="submit" id="AdminInventory" href="./Inventory.php">Inventory Management</a>
                 <a class="btn btn-primary btn-lg w-80 mb-4" type="submit" id="AdminInventory" href="./Categories.php" style="margin-right: 15px;">Category Management</a>
                 <a class="btn btn-primary btn-lg w-80 mb-4" type="submit" id="AdminInventory" href="./Users.php">User Management</a>
-                <a class="btn btn-primary btn-lg w-80 mb-4" type="submit" id="AdminInventory" href="./Users.php">Role Management</a>
+                <a class="btn btn-primary btn-lg w-80 mb-4" type="submit" id="AdminInventory" href="./Roles.php">Role Management</a>
             </div>
         </div>
     </div>

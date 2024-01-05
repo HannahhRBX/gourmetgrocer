@@ -61,7 +61,6 @@ class roleController {
     // Function to delete a specific role entry by its ID
     public function delete_role(int $id)
     {
-        $this->delete_image($id);
         // SQL query to delete role data by ID
         $sql = "DELETE FROM roles WHERE id = :id";
         $args = ['id' => $id];

@@ -81,6 +81,12 @@ if ($userRole == 'admin'){
             $catagoryArray = array('id'=>$objectId,'name'=>$catagoryName);
             $catagoryUpdate = $controllers->catagories()->update_catagory($catagoryArray);
             $header = "Categories.php";
+        }elseif ($objectType == "role"){
+            $roleName = InputProcessor::processString($_POST['roleName'])['value'];
+
+            $roleArray = array('id'=>$objectId,'name'=>$roleName);
+            $roleUpdate = $controllers->roles()->update_role($roleArray);
+            $header = "Roles.php";
         }
         
         header("Location: ".$header."?Update%20Success");

@@ -31,6 +31,10 @@ if ($userRole == 'admin'){
             $CatagoryName = InputProcessor::processString($_POST['CatagoryName'])['value'];
             $newCatagory = $controllers->catagories()->create_catagory(array('name'=>$CatagoryName));
             $header = "Categories.php";
+        }elseif ($objectType == "role"){ // Create a role
+            $RoleName = InputProcessor::processString($_POST['RoleName'])['value'];
+            $newRole = $controllers->roles()->create_role(array('name'=>$RoleName));
+            $header = "Roles.php";
         }
         header("Location: ".$header."?Upload%20Success"); //Direct user to chosen header based on created item type
         

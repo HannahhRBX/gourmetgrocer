@@ -72,8 +72,16 @@ if ($userRole == 'admin'){
         
     }
 }
+?>
+<div class="container" style="padding-top: 30px;">
+    <div class="col-md-12 text-center">
+        <div class="col-12 col-md-12">
+        <a class="btn btn-primary btn-lg w-80 mb-4" type="submit" id="AdminInventory" href="./Roles.php">Manage Roles</a>
+        </div>
+    </div>
+</div>
 
-
+<?php
 require __DIR__ . "/components/users.php";
 require __DIR__ . "/inc/footer.php"; 
 ?>

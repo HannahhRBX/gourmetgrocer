@@ -19,6 +19,9 @@ if ($userRole == 'admin'){
         }elseif ($objectType == "catagory"){
             $status = $controllers->catagories()->delete_catagory($objectId);
             $header = "Categories.php";
+        }elseif ($objectType == "role"){
+            $status = $controllers->roles()->delete_role($objectId);
+            $header = "Roles.php";
         }
         header("Location: ".$header."?Deletion%20Success");
         // Process the submitted form data

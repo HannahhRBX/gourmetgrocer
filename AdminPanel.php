@@ -4,7 +4,9 @@
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="card-body p-5 text-center">
                 <a class="btn btn-primary btn-lg w-80 mb-4" type="submit" id="AdminInventory" href="./Inventory.php" style="margin-right: 5px;">Inventory Management</a>
+                <a class="btn btn-primary btn-lg w-80 mb-4" type="submit" id="AdminInventory" href="./Categories.php">Category Management</a><br>
                 <a class="btn btn-primary btn-lg w-80 mb-4" type="submit" id="AdminInventory" href="./Users.php">User Management</a>
+                <a class="btn btn-primary btn-lg w-80 mb-4" type="submit" id="AdminInventory" href="./Users.php">Role Management</a>
             </div>
         </div>
     </div>

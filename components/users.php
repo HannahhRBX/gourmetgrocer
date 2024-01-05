@@ -1,11 +1,11 @@
 <?php
-// Include the functions file for necessary functions and classes
 
+// Check if user is member or admin to display management columns
 $userRole = RoutingController::verify_session_role();
-// Retrieve all equipment data using the equipment controller
+// Retrieve all member data using the member controller
 $users = $controllers->members()->get_all_members();
 ?>
-<!-- HTML for displaying the equipment inventory -->
+<!-- HTML for displaying the user list -->
 <div class="container mt-4">
     <h2>User Management</h2> 
     <table class="table table-striped"> 
@@ -99,7 +99,7 @@ $users = $controllers->members()->get_all_members();
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-danger">Delete</button>
+        <button type="submit" class="btn btn-danger" id="DeleteUser">Delete</button>
       </div>
       <input type="hidden" name="objectType" value="user">
       <input type="hidden" name="objectId" value=<?= $objectId; ?>>
@@ -119,7 +119,7 @@ $users = $controllers->members()->get_all_members();
         </button>
       </div>
       <div class="col-lg-12" style="padding-top: 15px;">
-      <form method="post" action="../updateRecord.php" enctype="multipart/form-data"> <!-- enctype to tell server that mutiple media types are being used -->
+      <form method="post" action="../updateRecord.php">
         <div class="form-group">
             <label for="exampleFormControlInput1" class="form-label">First Name</label>
             <input type="text" value="<?= $userFirstName ?>" class="form-control" name="userFirstName" id="userFirstName">
@@ -143,7 +143,7 @@ $users = $controllers->members()->get_all_members();
                 foreach ($roles as $role){
                     ?>
                     <option value=<?=$role['id'] ?><?php if ($role['id'] == $userRoleId){
-                      // Make the current equipment's catagory already selected
+                      // Make the current user's role already selected
                       ?>
                       selected 
                       <?php

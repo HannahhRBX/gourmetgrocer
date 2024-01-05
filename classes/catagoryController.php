@@ -61,7 +61,6 @@ class catagoryController {
     // Function to delete a specific catagory entry by its ID
     public function delete_catagory(int $id)
     {
-        $this->delete_image($id);
         // SQL query to delete catagory data by ID
         $sql = "DELETE FROM catagories WHERE id = :id";
         $args = ['id' => $id];

@@ -85,7 +85,20 @@ if ($userRole == 'admin'){
     </div>
   </div>
 </div>
-
+<!--
+<div class="container" style="padding-top: 30px; width: 500px;">
+    <div class="col-md-12 center">
+        <div class="col-12 col-md-12">
+        <label for="nameSearch" class="form-label">Search by Name:</label><br>
+            <form class="form-inline mr-auto">
+                
+                <input class="form-control mr-sm-2" style="width: 300px" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success btn-rounded btn-sm my-0 " type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+-->
 <!-- Add Item Modal Popup Form Element -->
 <div class="modal fade" id="AddItemModal" tabindex="-1" role="dialog" aria-labelledby="AddItemModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -97,7 +110,7 @@ if ($userRole == 'admin'){
         </button>
       </div>
       <div class="col-lg-12" style="padding-top: 15px;">
-      <form method="post" action="./upload.php" enctype="multipart/form-data"> <!-- enctype to tell server that mutiple media types are being used -->
+      <form method="post" action="./createRecord.php" enctype="multipart/form-data"> <!-- enctype to tell server that mutiple media types are being used -->
         <div class="form-group">
             <label for="exampleFormControlInput1" class="form-label">Item Name</label>
             <input type="text" class="form-control" name="ItemName" id="ItemName">
@@ -141,6 +154,7 @@ if ($userRole == 'admin'){
         </div>
         </div>
         <div class="modal-footer">
+            <input type="hidden" name="objectType" value="equipment">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-success">Create</button>
         </form>

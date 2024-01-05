@@ -1,6 +1,6 @@
 <?php
-// Include the functions file for necessary functions and classes
 
+// Check if user is member or admin to display management columns
 $userRole = RoutingController::verify_session_role();
 // Retrieve all equipment data using the equipment controller
 $equipment = $controllers->equipment()->get_all_equipments();

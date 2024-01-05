@@ -26,7 +26,19 @@
         <a class="nav-link" href="./index.php">Home</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="./AdminPanel.php">Admin Panel</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="./Inventory.php">Inventory</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="./Categories.php">Categories</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="./Users.php">Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="./Roles.php">Roles</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="./login.php"><?php session_start(); if (!isset($_SESSION['user'])){echo "Login";}else{echo "Logout";} ?></a>

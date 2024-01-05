@@ -35,7 +35,15 @@ $users = $controllers->members()->get_all_members();
                     <?php
                     
                     $roleId = $controllers->members()->get_role_by_userid($user['ID']);
-                    $role = $controllers->roles()->get_role_by_id($roleId);
+                    if ($roleId != null){
+                      $roleId = $roleId["role_id"];
+                      $role = $controllers->roles()->get_role_by_id($roleId);
+                    }else{
+                      $roleId = 1;
+                      $role = array("name"=>"");
+                    }
+
+                    
                     ?>
                     <td><?= htmlspecialchars_decode($role['name'], ENT_QUOTES) ?></td>
                     <?php

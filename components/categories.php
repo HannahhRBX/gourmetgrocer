@@ -81,7 +81,7 @@ $catagories = $controllers->catagories()->get_all_catagories();
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-danger" id="DeleteItem">Delete</button>
+        <button type="submit" class="btn btn-danger" id="DeleteCatagory">Delete</button>
       </div>
       <input type="hidden" name="objectType" value="catagory">
       <input type="hidden" name="objectId" value=<?php echo $objectId; ?>>

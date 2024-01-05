@@ -16,8 +16,15 @@
             {
                 $record[$index] = htmlspecialchars_decode($value, ENT_QUOTES);
             }
+            
             $catagoryId = $controllers->equipment()->get_catagory_by_equipmentid($record['id']);
-            $catagory = $controllers->catagories()->get_catagory_by_id($catagoryId);
+            if ($catagoryId != null){
+                $catagory = $controllers->catagories()->get_catagory_by_id($catagoryId["catagory_id"]);
+            }else{
+                $catagory = array("id"=>"1");
+                $catagory = array("name"=>"");
+            }
+
             $record['catagory'] = htmlspecialchars_decode($catagory['name'], ENT_QUOTES);;
             array_push($post_arr['data'],$record);
         }

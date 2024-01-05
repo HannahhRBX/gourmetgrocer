@@ -44,9 +44,15 @@ if ($userRole == 'admin'){
             if (isset($equipmentArray)){
                 $item = $controllers->equipment()->update_equipment($equipmentArray);
                 // Make sure to update catagory_id for record in equipment_catagories table
-                $itemCatagory = $controllers->equipment()->update_equipment_catagory(array('equipment_id'=>$objectId,'catagory_id'=>$ItemCatagoryId));
+                // Check if item has category
+                $itemCatagory = $controllers->equipment()->get_catagory_by_equipmentid($objectId);
+                if ($itemCatagory != null){
+                    $itemCatagory = $controllers->equipment()->update_equipment_catagory(array('equipment_id'=>$objectId,'catagory_id'=>$ItemCatagoryId));
+                }else{
+                    $itemCatagory = $controllers->equipment()->add_equipment_to_catagory(array('equipment_id'=>$objectId,'catagory_id'=>$ItemCatagoryId));
+                }
+
                 $header = "Inventory.php";
-                header("Location: Inventory.php?Update%20Success");
             }
             
             
@@ -59,7 +65,13 @@ if ($userRole == 'admin'){
             $userArray = array('id'=>$objectId,'firstname'=>$userFirstName,'lastname'=>$userLastName,'email'=>$userEmail);
             $userUpdate = $controllers->members()->update_member($userArray);
            
-            $userRole = $controllers->members()->update_member_role(array('user_id'=>$objectId,'role_id'=>$userRoleId));
+            $userRole = $controllers->members()->get_role_by_userid($objectId);
+            
+            if ($userRole != null){
+                $userRole = $controllers->members()->update_member_role(array('user_id'=>$objectId,'role_id'=>$userRoleId));
+             }else{
+                $userRole = $controllers->members()->add_member_to_roles(array('user_id'=>$objectId,'role_id'=>$userRoleId));
+            }
             $header = "Users.php";
             
             

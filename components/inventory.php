@@ -12,7 +12,7 @@ $equipment = $controllers->equipment()->get_all_equipments();
             <tr>
                 <th>Image</th> 
                 <th>Name</th> 
-                <th>Catagory</th> 
+                <th>Category</th> 
                 <th>Description</th>
                 <th>Stock</th>
                 <th>Buy Price</th>
@@ -38,7 +38,14 @@ $equipment = $controllers->equipment()->get_all_equipments();
                     </td>
                     <td><?= htmlspecialchars_decode($equip['name'], ENT_QUOTES) ?></td> 
                     <?php $catagoryId = $controllers->equipment()->get_catagory_by_equipmentid($equip['id']);
-                    $catagory = $controllers->catagories()->get_catagory_by_id($catagoryId);
+                    if ($catagoryId != null){
+                      $catagoryId = $catagoryId["catagory_id"];
+                      $catagory = $controllers->catagories()->get_catagory_by_id($catagoryId);
+                    }else{
+                      $catagoryId = 1;
+                      $catagory = array("name"=>"");
+                    }
+                   
                     ?>
                     <td><?= htmlspecialchars_decode($catagory['name'], ENT_QUOTES) ?></td> 
                     
@@ -125,6 +132,7 @@ $equipment = $controllers->equipment()->get_all_equipments();
   </div>
 </div>
 
+
 <!-- Edit Item Modal Popup Form Element -->
 <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -151,7 +159,7 @@ $equipment = $controllers->equipment()->get_all_equipments();
             <select class="select" style="padding: 4px" name="ItemCatagory">
                 <?php
                 // Create a dropdown list, with all catagories currently in catagories table
-                $currentCatagory = $controllers->catagories()->get_catagory_by_id($objectCatagoryId);
+                
                 $catagories = $controllers->catagories()->get_all_catagories();
                 foreach ($catagories as $catagory){
                     ?>

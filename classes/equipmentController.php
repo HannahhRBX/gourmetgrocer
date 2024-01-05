@@ -67,7 +67,7 @@ class equipmentController {
         // Execute the SQL query with the provided equipment data
         $this->db->runSQL($sql, $equipment);
         
-        // Return the ID of the last inserted equipment
+        // Return the ID of the last inserted equipment category
         return $this->db->lastInsertId();
     }
 
@@ -79,7 +79,7 @@ class equipmentController {
         $sql = "SELECT catagory_id FROM equipment_catagories WHERE equipment_id = :equipment_id";
         $args = ['equipment_id' => $id];
         // Execute the query and return the fetched member record
-        return $this->db->runSQL($sql, $args)->fetch()["catagory_id"];
+        return $this->db->runSQL($sql, $args)->fetch();
 
     }
     // Function to retrieve a specific equipment by its ID

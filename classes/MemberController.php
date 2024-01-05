@@ -33,7 +33,7 @@ class MemberController {
         $sql = "SELECT role_id FROM user_roles WHERE user_id = :user_id";
         $args = ['user_id' => $id];
         // Execute the query and return the fetched member record
-        return $this->db->runSQL($sql, $args)->fetch()["role_id"];
+        return $this->db->runSQL($sql, $args)->fetch();
 
     }
 
@@ -47,7 +47,7 @@ class MemberController {
         
         // Execute the query and return the fetched member record
         $getUserData = $this->db->runSQL($sql, $args)->fetch();
-        $role = $this->get_role_by_userid($getUserData['ID']);
+        $role = $this->get_role_by_userid($getUserData['ID'])["role_id"];
         $getUserData['role_id'] = $role;
         return $getUserData;
     }
@@ -87,6 +87,19 @@ class MemberController {
         $args = ['id' => $id];
         // Execute the query
         return $this->db->runSQL($sql, $args)->execute();
+    }
+
+    // Function to add a member id and member id into the member_roles table
+    public function add_member_to_roles(array $Ids){
+        // SQL query to insert new user data into the roles table
+        $sql = "INSERT INTO user_roles(user_id, role_id)
+        VALUES (:user_id, :role_id);";
+        
+        // Execute the SQL query with the provided user data
+        $this->db->runSQL($sql, $Ids);
+        
+        // Return the ID of the last inserted member role
+        return $this->db->lastInsertId();
     }
 
     // Method to register a new member

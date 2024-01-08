@@ -17,6 +17,7 @@ if ($userRole == 'admin'){
             // Process the submitted form data
             $ItemName = InputProcessor::processString($_POST['ItemName'])['value'];
             $ItemCatagoryId = InputProcessor::processString($_POST['ItemCatagory'])['value'];
+            $ItemSupplierId = InputProcessor::processString($_POST['ItemSupplier'])['value'];
             $ItemStock = (int)InputProcessor::processString($_POST['ItemStock'])['value'];
             $ItemBuyPrice = (float)InputProcessor::processString($_POST['ItemBuyPrice'])['value'];
             $ItemSellPrice = (float)InputProcessor::processString($_POST['ItemSellPrice'])['value'];
@@ -51,6 +52,13 @@ if ($userRole == 'admin'){
                 }else{
                     $itemCatagory = $controllers->equipment()->add_equipment_to_catagory(array('equipment_id'=>$objectId,'catagory_id'=>$ItemCatagoryId));
                 }
+                $itemSupplier = $controllers->equipment()->get_supplier_by_equipmentid($objectId);
+                if ($itemSupplier != null){
+                    $itemSupplier = $controllers->equipment()->update_equipment_supplier(array('equipment_id'=>$objectId,'supplier_id'=>$ItemSupplierId));
+                }else{
+                    $itemSupplier = $controllers->equipment()->add_equipment_to_supplier(array('equipment_id'=>$objectId,'supplier_id'=>$ItemSupplierId));
+                }
+
 
                 $header = "Inventory.php";
             }
@@ -87,8 +95,16 @@ if ($userRole == 'admin'){
             $roleArray = array('id'=>$objectId,'name'=>$roleName);
             $roleUpdate = $controllers->roles()->update_role($roleArray);
             $header = "Roles.php";
+        }elseif ($objectType == "supplier"){
+            $SupplierName = InputProcessor::processString($_POST['SupplierName'])['value'];
+            $SupplierEmail = InputProcessor::processString($_POST['SupplierEmail'])['value'];
+            $SupplierPhone = InputProcessor::processString($_POST['SupplierPhone'])['value'];
+            $SupplierAddress = InputProcessor::processString($_POST['SupplierAddress'])['value'];
+            
+            $supplierArray = array('id'=>$objectId,'name'=>$SupplierName,'email'=>$SupplierEmail,'phone'=>$SupplierPhone,'address'=>$SupplierAddress);
+            $supplierUpdate = $controllers->suppliers()->update_supplier($supplierArray);
+            $header = "Suppliers.php";
         }
-        
         header("Location: ".$header."?Update%20Success");
         
         

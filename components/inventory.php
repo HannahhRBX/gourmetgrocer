@@ -6,23 +6,30 @@ $userRole = RoutingController::verify_session_role();
 $equipment = $controllers->equipment()->get_all_equipments();
 ?>
 <!-- HTML for displaying the equipment inventory -->
-<div class="container mt-4">
+<div class="container" style="max-width: 95%">
     <h2>Store Inventory</h2> 
     <table class="table table-striped"> 
             <tr>
                 <th>Image</th> 
                 <th>Name</th> 
-                <th>Category</th> 
+                <th>Category</th>
+                <th>Supplier</th>
                 <th>Description</th>
                 <th>Stock</th>
                 <th>Buy Price</th>
                 <th>Sell Price</th>
+                
                 <?php
                 //Check if admin, so that an extra Management column can appear next to each item
                 if ($userRole == 'admin'){
                     ?>
+                <th>Restocking</th>
                 <th>Manage</th>
                 <?php
+                }else{
+                  ?>
+                  <th></th>
+                  <?php
                 }
                 ?>
             </tr>
@@ -37,7 +44,8 @@ $equipment = $controllers->equipment()->get_all_equipments();
                              
                     </td>
                     <td><?= htmlspecialchars_decode($equip['name'], ENT_QUOTES) ?></td> 
-                    <?php $catagoryId = $controllers->equipment()->get_catagory_by_equipmentid($equip['id']);
+                    <?php 
+                    $catagoryId = $controllers->equipment()->get_catagory_by_equipmentid($equip['id']);
                     if ($catagoryId != null){
                       $catagoryId = $catagoryId["catagory_id"];
                       $catagory = $controllers->catagories()->get_catagory_by_id($catagoryId);
@@ -45,19 +53,51 @@ $equipment = $controllers->equipment()->get_all_equipments();
                       $catagoryId = 1;
                       $catagory = array("name"=>"");
                     }
+
+                    $supplierId = $controllers->equipment()->get_supplier_by_equipmentid($equip['id']);
+                    if ($supplierId != null){
+                      $supplierId = $supplierId["supplier_id"];
+                      $supplier = $controllers->suppliers()->get_supplier_by_id($supplierId);
+                    }else{
+                      $supplierId = 1;
+                      $supplier = array("name"=>"");
+                    }
                    
                     ?>
                     <td><?= htmlspecialchars_decode($catagory['name'], ENT_QUOTES) ?></td> 
+                    <td><?= htmlspecialchars_decode($supplier['name'], ENT_QUOTES) ?></td> 
                     
                     <td><?= htmlspecialchars_decode($equip['description'], ENT_QUOTES) ?></td> 
                     <td><?= htmlspecialchars_decode($equip['stock'], ENT_QUOTES) ?></td>
                     <td><?= htmlspecialchars_decode($equip['buy_price'], ENT_QUOTES) ?></td> 
                     <td><?= htmlspecialchars_decode($equip['sell_price'], ENT_QUOTES) ?></td> 
+                    <td>
+                      <?php if ($userRole == "admin"){
+                        ?>
+                        <form action="./Inventory.php" method="post" style="padding-right: 10px; float: left;">
+                        <button class="btn btn-success btn-md w-40 mb-4" type="submit" id="addButton" style="margin-right: 7px;" >Restock</button>
+                        <input type="number" value="0" min="0" class="form-control" name="ItemQuantity" id="ItemQuantity" style="width: 80px; float: right;">
+                        <input type="hidden" name="actionType" value="addCart">
+                        <input type="hidden" name="objectId" value="<?= $equip['id']; ?>">
+                      </form>
+                        <?php
+                      }else{
+                        ?>
+                      <form action="./Inventory.php" method="post" style="padding-right: 10px; float: left;">
+                        <button class="btn btn-success btn-md w-40 mb-4" type="submit" id="addButton" style="margin-right: 7px;" >Add to Cart</button>
+                        <input type="number" value="0" min="0" max="<?= $equip['stock'] ?>" class="form-control" name="ItemQuantity" id="ItemQuantity" style="width: 80px; float: right;">
+                        <input type="hidden" name="actionType" value="addCart">
+                        <input type="hidden" name="objectId" value="<?= $equip['id']; ?>">
+                      </form>
+                      <?php
+                      }
+                      ?>
+                    </td>
                     <?php
                     //Check if admin, so that an extra column with edit and delete buttons can appear next to each item
                     if ($userRole == 'admin'){
                         ?>
-                        <td><div class="container">
+                        <td style="width: 200px"><div class="container">
                         <form action="./Inventory.php" method="post" style="padding-right: 10px; float: left;">
                         <button class="btn btn-danger btn-md w-40 mb-4" type="submit" id="deleteButton">Delete</button>
                         <!-- Create hidden HTML variables to pass into the database processing form when submitted -->
@@ -65,6 +105,7 @@ $equipment = $controllers->equipment()->get_all_equipments();
                         <input type="hidden" name="objectId" value="<?= $equip['id']; ?>">
                         <input type="hidden" name="objectName" value="<?= $equip['name']; ?>">
                         <input type="hidden" name="objectCatagoryId" value="<?= $catagoryId; ?>">
+                        <input type="hidden" name="objectSupplierId" value="<?= $supplierId; ?>">
                         <input type="hidden" name="objectStock" value="<?= $equip['stock']; ?>">
                         <input type="hidden" name="objectBuyPrice" value="<?= $equip['buy_price']; ?>">
                         <input type="hidden" name="objectSellPrice" value="<?= $equip['sell_price']; ?>">
@@ -78,6 +119,7 @@ $equipment = $controllers->equipment()->get_all_equipments();
                         <input type="hidden" name="objectId" value="<?= $equip['id']; ?>">
                         <input type="hidden" name="objectName" value="<?= $equip['name']; ?>">
                         <input type="hidden" name="objectCatagoryId" value="<?= $catagoryId; ?>">
+                        <input type="hidden" name="objectSupplierId" value="<?= $supplierId; ?>">
                         <input type="hidden" name="objectStock" value="<?= $equip['stock']; ?>">
                         <input type="hidden" name="objectBuyPrice" value="<?= $equip['buy_price']; ?>">
                         <input type="hidden" name="objectSellPrice" value="<?= $equip['sell_price']; ?>">
@@ -87,7 +129,8 @@ $equipment = $controllers->equipment()->get_all_equipments();
                             
                         
                         </div>
-                        </td> 
+                        </td>
+
                         <?php
                     }
                     ?>
@@ -170,6 +213,27 @@ $equipment = $controllers->equipment()->get_all_equipments();
                       <?php
                     } ?> 
                     ><?= $catagory['name'] ?></option>
+                    <?php
+                }
+                ?> 
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1" class="form-label">Item Supplier</label><br>
+            <select class="select" style="padding: 4px" name="ItemSupplier">
+                <?php
+                // Create a dropdown list, with all suppliers currently in suppliers table
+                
+                $suppliers = $controllers->suppliers()->get_all_suppliers();
+                foreach ($suppliers as $supplier){
+                    ?>
+                    <option value=<?=$supplier['id'] ?><?php if ($supplier['id'] == $objectSupplierId){
+                      // Make the current equipment's supplier already selected
+                      ?>
+                      selected 
+                      <?php
+                    } ?> 
+                    ><?= $supplier['name'] ?></option>
                     <?php
                 }
                 ?> 

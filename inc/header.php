@@ -35,6 +35,9 @@
         <a class="nav-link" href="./Categories.php">Categories</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="./Suppliers.php">Suppliers</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="./Users.php">Users</a>
       </li>
       <li class="nav-item">
@@ -45,6 +48,13 @@
       </li>
     </ul>
   </div>
+  <div class="navbar-collapse collapse w-30 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="./Cart.php">View Order</a>
+            </li>
+        </ul>
+    </div>
 </nav>
 
 

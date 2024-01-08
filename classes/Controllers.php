@@ -12,6 +12,7 @@ class Controllers {
     protected $routing = null;
     protected $catagories = null;
     protected $roles = null;
+    protected $suppliers = null;
 
     // Constructor method for the Controllers class
     public function __construct()
@@ -78,5 +79,14 @@ class Controllers {
             $this->roles = new roleController($this->db);
         }
         return $this->roles;
+    }
+
+    public function suppliers()
+    {
+        // Check if suppliers controller is null, if so, create a new instance
+        if ($this->suppliers === null) {
+            $this->suppliers = new supplierController($this->db);
+        }
+        return $this->suppliers;
     }
 }

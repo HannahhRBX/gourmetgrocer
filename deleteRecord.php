@@ -22,6 +22,9 @@ if ($userRole == 'admin'){
         }elseif ($objectType == "role"){
             $status = $controllers->roles()->delete_role($objectId);
             $header = "Roles.php";
+        }elseif ($objectType == "supplier"){
+            $status = $controllers->suppliers()->delete_supplier($objectId);
+            $header = "Suppliers.php";
         }
         header("Location: ".$header."?Deletion%20Success");
         // Process the submitted form data

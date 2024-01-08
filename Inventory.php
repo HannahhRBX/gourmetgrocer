@@ -38,6 +38,7 @@ if ($userRole == 'admin'){
             $objectId = $_POST['objectId'];
             $objectName = $_POST['objectName'];
             $objectCatagoryId = $_POST['objectCatagoryId'];
+            $objectSupplierId = $_POST['objectSupplierId'];
             $objectDescription = $_POST['objectDescription'];
             $objectStock = $_POST['objectStock'];
             $objectBuyPrice = $_POST['objectBuyPrice'];
@@ -130,6 +131,20 @@ if ($userRole == 'admin'){
                 foreach ($catagories as $catagory){
                     ?>
                     <option value=<?=$catagory['id'] ?>><?= $catagory['name'] ?></option>
+                    <?php
+                }
+                ?> 
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1" class="form-label">Item Supplier</label><br>
+            <select class="select" style="padding: 4px" name="ItemSupplier">
+                <?php
+                // Create a dropdown list, with all suppliers currently in suppliers table
+                $suppliers = $controllers->suppliers()->get_all_suppliers();
+                foreach ($suppliers as $supplier){
+                    ?>
+                    <option value=<?=$supplier['id'] ?>><?= $supplier['name'] ?></option>
                     <?php
                 }
                 ?> 

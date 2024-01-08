@@ -10,6 +10,7 @@ if ($userRole == 'admin'){
             // Process the submitted form data
             $ItemName = InputProcessor::processString($_POST['ItemName'])['value'];
             $ItemCatagoryId = InputProcessor::processString($_POST['ItemCatagory'])['value'];
+            $ItemSupplierId = InputProcessor::processString($_POST['ItemSupplier'])['value'];
             $ItemDescription = InputProcessor::processString($_POST['ItemDescription'])['value'];
             $ItemStock = InputProcessor::processString($_POST['ItemStock'])['value'];
             $ItemBuyPrice = InputProcessor::processString($_POST['ItemBuyPrice'])['value'];
@@ -22,6 +23,7 @@ if ($userRole == 'admin'){
                 // Create an equipment record with details, then input new equipment Id into equipment_catagory link table
                 $NewItemId = $controllers->equipment()->create_equipment(array('name'=>$ItemName,'description'=>$ItemDescription,'image'=>$fileResult["Destination"],'stock'=>$ItemStock,'buy_price'=>$ItemBuyPrice,'sell_price'=>$ItemSellPrice));
                 $itemCatagory = $controllers->equipment()->add_equipment_to_catagory(array($NewItemId,$ItemCatagoryId));
+                $itemSupplier = $controllers->equipment()->add_equipment_to_supplier(array($NewItemId,$ItemSupplierId));
                 $header = "Inventory.php";
             }else{
                 // Give error code if upload fails
@@ -35,6 +37,14 @@ if ($userRole == 'admin'){
             $RoleName = InputProcessor::processString($_POST['RoleName'])['value'];
             $newRole = $controllers->roles()->create_role(array('name'=>$RoleName));
             $header = "Roles.php";
+        }
+        elseif ($objectType == "supplier"){ // Create a supplier
+            $SupplierName = InputProcessor::processString($_POST['SupplierName'])['value'];
+            $SupplierEmail = InputProcessor::processString($_POST['SupplierEmail'])['value'];
+            $SupplierPhone = InputProcessor::processString($_POST['SupplierPhone'])['value'];
+            $SupplierAddress = InputProcessor::processString($_POST['SupplierAddress'])['value'];
+            $newSupplier = $controllers->suppliers()->create_supplier(array('name'=>$SupplierName,'email'=>$SupplierEmail,'phone'=>$SupplierPhone,'address'=>$SupplierAddress));
+            $header = "Suppliers.php";
         }
         header("Location: ".$header."?Upload%20Success"); //Direct user to chosen header based on created item type
         

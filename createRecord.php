@@ -45,8 +45,25 @@ if ($userRole == 'admin'){
             $SupplierAddress = InputProcessor::processString($_POST['SupplierAddress'])['value'];
             $newSupplier = $controllers->suppliers()->create_supplier(array('name'=>$SupplierName,'email'=>$SupplierEmail,'phone'=>$SupplierPhone,'address'=>$SupplierAddress));
             $header = "Suppliers.php";
+        }elseif ($objectType == "restock"){ // Create an order
+            $equipment = $_SESSION['user']['cart'];
+            $paymentTerm = 'NET 30';
+            $RestockId = $controllers->restocks()->create_restock(array('user_id'=>$_SESSION['user']['ID'],'payment_term'=>$paymentTerm));
+
+            foreach ($equipment as $equip){
+                $id = $equip['id'];
+                $quantity = $equip['quantity'];
+                $equip = $controllers->equipment()->get_equipment_by_id($id);
+                $price = $equip['buy_price'];
+                $newShipment = $controllers->restocks()->create_shipment(array('restock_id'=>$RestockId,'equipment_id'=>$id,'price'=>$price,'quantity'=>$quantity));
+
+            }
+            header("Location: OrderComplete.php?".$RestockId); //Direct user to chosen header based on created item type
+
         }
-        header("Location: ".$header."?Upload%20Success"); //Direct user to chosen header based on created item type
+        if (isset($header)){
+            header("Location: ".$header."?Upload%20Success"); //Direct user to chosen header based on created item type
+        }
         
     }
 }

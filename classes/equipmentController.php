@@ -119,6 +119,18 @@ class equipmentController {
         return $this->db->runSQL($sql, $args)->fetch();
     }
 
+     // Method to retrieve a member role ID by its user ID
+    public function get_all_equipments_by_supplierid(int $id)
+    {
+        // SQL query to get a user's role id from the roles table
+        
+        $sql = "SELECT * FROM equipment_suppliers WHERE supplier_id = :supplier_id";
+        $args = ['supplier_id' => $id];
+        // Execute the query and return the fetched member record
+        return $this->db->runSQL($sql, $args)->fetchAll();
+    }
+ 
+
     // Function to retrieve all equipment entries from the database
     public function get_all_equipments()
     {

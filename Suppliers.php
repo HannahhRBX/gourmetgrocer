@@ -126,7 +126,6 @@ if ($userRole == 'admin'){
 <?php
 }
 
-
 require __DIR__ . "/components/suppliers.php";
 require __DIR__ . "/inc/footer.php"; 
 ?>

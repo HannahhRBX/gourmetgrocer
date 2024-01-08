@@ -34,12 +34,10 @@ $suppliers = $controllers->suppliers()->get_all_suppliers();
                     <td><?= htmlspecialchars_decode($supplier['phone'], ENT_QUOTES) ?></td>
                     <td><?= htmlspecialchars_decode($supplier['address'], ENT_QUOTES) ?></td>
                     <td>
-                      <form action="./Suppliers.php" method="post" style="float: left;">
+                      <form action="./Shipments.php" method="get" style="float: left;">
                         <button class="btn btn-info btn-md w-40 mb-4" type="submit" id="editButton">View</button>
+                        <input type="hidden" name="supplierId" value="<?= $supplier['id']; ?>">
                         <!-- Create hidden HTML variables to pass into the database processing form when submitted -->
-                        <input type="hidden" name="actionType" value="edit">
-                        <input type="hidden" name="objectId" value="<?= $supplier['id']; ?>">
-                        <input type="hidden" name="objectName" value="<?= $supplier['name']; ?>">
                       </form>
                     </td>
                     <?php

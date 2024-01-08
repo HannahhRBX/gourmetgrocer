@@ -8,31 +8,8 @@ require __DIR__ . "/inc/functions.php";
 $userRole = RoutingController::verify_session_role();
 if ($userRole == 'admin'){
     // Check for any POST or GET data to initiate a form data update or display status
-    if ($_SERVER['REQUEST_METHOD'] == 'GET'){
-        $getInfo = urldecode($_SERVER['QUERY_STRING']);
-        if ($getInfo != ''){
-            if (str_contains($getInfo,"Success")){
-
-                // Display green status message if the word 'Success' is in the URL GET request
-                ?>
-                <div class="text-bg-success p-3">
-                    <div class="card bg-success text-center">
-                        <div class="card-body text-white"><h5><?php echo $getInfo; ?></h5></div>
-                    </div>
-                </div>
-            <?php
-            }else{
-                // Otherwise display a red status message with error information
-                ?>
-                <div class="text-bg-danger p-3">
-                    <div class="card bg-danger text-center">
-                        <div class="card-body text-white"><h5><?php echo $getInfo; ?></h5></div>
-                    </div>
-                </div>
-                <?php
-            }
-        }
-    }elseif ($_SERVER['REQUEST_METHOD'] == 'POST'){
+    
+    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $actionType = $_POST['actionType'];
         if (isset($actionType)){ //Check if the POST action is a modifying action
             $objectId = $_POST['objectId'];
@@ -77,14 +54,8 @@ if ($userRole == 'admin'){
 
 ?>
 
-<!-- Button for Add Item at top of page only appears if logged in as Admin -->
-<div class="container" style="padding-top: 30px;">
-<div class="col-md-12 text-center">
-    <div class="col-12 col-md-12">
-        <button class="btn btn-success btn-lg w-80 mb-4" type="submit" id="AdminInventory" data-toggle="modal" data-target="#AddItemModal">Order Restock</button>
-    </div>
-  </div>
-</div>
+
+
 <!--
 <div class="container" style="padding-top: 30px; width: 500px;">
     <div class="col-md-12 center">
@@ -167,7 +138,46 @@ if ($userRole == 'admin'){
 <?php
 }
 
+if ($_SERVER['REQUEST_METHOD'] == 'GET'){
+    $getInfo = urldecode($_SERVER['QUERY_STRING']);
+    if ($getInfo != ''){
+        if (str_contains($getInfo,"Success") || str_contains($getInfo,"Added")){
 
-require __DIR__ . "/components/inventory.php";
+            // Display green status message if the word 'Success' is in the URL GET request
+            ?>
+            <div class="text-bg-success p-3">
+                <div class="card bg-success text-center">
+                    <div class="card-body text-white"><h5><?php echo $getInfo; ?></h5></div>
+                </div>
+            </div>
+        <?php
+        }else{
+            // Otherwise display a red status message with error information
+            ?>
+            <div class="text-bg-danger p-3">
+                <div class="card bg-danger text-center">
+                    <div class="card-body text-white"><h5><?php echo $getInfo; ?></h5></div>
+                </div>
+            </div>
+            <?php
+        }
+    }
+}
+?>
+<!-- Button for Complete Order at top of page -->
+<div class="container" style="padding-top: 30px;">
+<div class="col-md-12 text-center">
+    <div class="col-12 col-md-12">
+    <form method="post" action="./createRecord.php"> <!-- enctype to tell server that mutiple media types are being used -->
+    <input type="hidden" name="objectType" value="restock">
+    <button type="submit" class="btn btn-success btn-lg w-80 mb-4">Complete Order</button>
+    </form>
+    </div>
+  </div>
+</div>
+
+
+<?php
+require __DIR__ . "/components/cart.php";
 require __DIR__ . "/inc/footer.php"; 
 ?>

@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
      } else {
          // Set user session data on successful login
          $_SESSION['user'] = $member;
+         $_SESSION['user']['cart'] = array();
          //echo var_dump($member), $member['user_type'];
          // Redirect based on user type
          echo var_dump($member);

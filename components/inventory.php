@@ -4,6 +4,22 @@
 $userRole = RoutingController::verify_session_role();
 // Retrieve all equipment data using the equipment controller
 $equipment = $controllers->equipment()->get_all_equipments();
+
+function GetItemQuantity($ItemId){
+
+  if (isset($_SESSION['user'])){
+      if (isset($_SESSION['user']['cart'])){
+        foreach ($_SESSION['user']['cart'] as $index=>$Item){
+          if ($Item['id'] == $ItemId){
+              return $_SESSION['user']['cart'][$index]['quantity'];
+          }
+        }
+      }
+  }
+  return 0;
+}
+
+
 ?>
 <!-- HTML for displaying the equipment inventory -->
 <div class="container" style="max-width: 95%">
@@ -18,18 +34,14 @@ $equipment = $controllers->equipment()->get_all_equipments();
                 <th>Stock</th>
                 <th>Buy Price</th>
                 <th>Sell Price</th>
-                
+                <th>Order Quantity</th>
                 <?php
                 //Check if admin, so that an extra Management column can appear next to each item
                 if ($userRole == 'admin'){
                     ?>
-                <th>Restocking</th>
+                
                 <th>Manage</th>
                 <?php
-                }else{
-                  ?>
-                  <th></th>
-                  <?php
                 }
                 ?>
             </tr>
@@ -69,23 +81,25 @@ $equipment = $controllers->equipment()->get_all_equipments();
                     
                     <td><?= htmlspecialchars_decode($equip['description'], ENT_QUOTES) ?></td> 
                     <td><?= htmlspecialchars_decode($equip['stock'], ENT_QUOTES) ?></td>
-                    <td><?= htmlspecialchars_decode($equip['buy_price'], ENT_QUOTES) ?></td> 
-                    <td><?= htmlspecialchars_decode($equip['sell_price'], ENT_QUOTES) ?></td> 
+                    <td>£<?= htmlspecialchars_decode($equip['buy_price'], ENT_QUOTES) ?></td> 
+                    <td>£<?= htmlspecialchars_decode($equip['sell_price'], ENT_QUOTES) ?></td> 
                     <td>
                       <?php if ($userRole == "admin"){
                         ?>
-                        <form action="./Inventory.php" method="post" style="padding-right: 10px; float: left;">
+                        <form action="./AddToCart.php" method="post" style="padding-right: 10px; float: left;">
                         <button class="btn btn-success btn-md w-40 mb-4" type="submit" id="addButton" style="margin-right: 7px;" >Restock</button>
-                        <input type="number" value="0" min="0" class="form-control" name="ItemQuantity" id="ItemQuantity" style="width: 80px; float: right;">
+                        <input type="number" value="<?= GetItemQuantity($equip['id']) ?>" min="0" class="form-control" name="ItemQuantity" id="ItemQuantity" style="width: 80px; float: right;">
+                        <input type="hidden" name="header" value="Inventory.php">
                         <input type="hidden" name="actionType" value="addCart">
                         <input type="hidden" name="objectId" value="<?= $equip['id']; ?>">
                       </form>
                         <?php
                       }else{
                         ?>
-                      <form action="./Inventory.php" method="post" style="padding-right: 10px; float: left;">
+                      <form action="./AddToCart.php" method="post" style="padding-right: 10px; float: left;">
                         <button class="btn btn-success btn-md w-40 mb-4" type="submit" id="addButton" style="margin-right: 7px;" >Add to Cart</button>
-                        <input type="number" value="0" min="0" max="<?= $equip['stock'] ?>" class="form-control" name="ItemQuantity" id="ItemQuantity" style="width: 80px; float: right;">
+                        <input type="number" value="<?= GetItemQuantity($equip['id']) ?>" min="0" max="<?= $equip['stock'] ?>" class="form-control" name="ItemQuantity" id="ItemQuantity" style="width: 80px; float: right;">
+                        <input type="hidden" name="header" value="Inventory.php">
                         <input type="hidden" name="actionType" value="addCart">
                         <input type="hidden" name="objectId" value="<?= $equip['id']; ?>">
                       </form>

@@ -168,8 +168,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
 <div class="container" style="padding-top: 30px;">
 <div class="col-md-12 text-center">
     <div class="col-12 col-md-12">
-    <form method="post" action="./createRecord.php"> <!-- enctype to tell server that mutiple media types are being used -->
-    <input type="hidden" name="objectType" value="restock">
+    <form method="post" action="./createRecord.php">
+    <input type="hidden" name="objectType" value="order">
     <button type="submit" class="btn btn-success btn-lg w-80 mb-4">Complete Order</button>
     </form>
     </div>

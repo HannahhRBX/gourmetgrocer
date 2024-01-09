@@ -4,6 +4,11 @@ $userRole = RoutingController::verify_session_role();
 // Retrieve all equipment data using the supplier controller
 $suppliers = $controllers->suppliers()->get_all_suppliers();
 ?>
+<style>
+table, th, td {
+  text-align: center;
+}
+</style>
 <!-- HTML for displaying the equipment inventory -->
 <div class="container mt-4">
     <h2>Supplier Management</h2> 
@@ -34,7 +39,7 @@ $suppliers = $controllers->suppliers()->get_all_suppliers();
                     <td><?= htmlspecialchars_decode($supplier['phone'], ENT_QUOTES) ?></td>
                     <td><?= htmlspecialchars_decode($supplier['address'], ENT_QUOTES) ?></td>
                     <td>
-                      <form action="./Shipments.php" method="get" style="float: left;">
+                      <form action="./Shipments.php" method="get">
                         <button class="btn btn-info btn-md w-40 mb-4" type="submit" id="editButton">View</button>
                         <input type="hidden" name="supplierId" value="<?= $supplier['id']; ?>">
                         <!-- Create hidden HTML variables to pass into the database processing form when submitted -->

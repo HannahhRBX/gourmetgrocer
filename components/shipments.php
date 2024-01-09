@@ -23,6 +23,11 @@ function round_to_2dp($num){
 ?>
 <br>
 <br>
+<style>
+table, th, td {
+  text-align: center;
+}
+</style>
 <!-- HTML for displaying the equipment inventory -->
 <div class="container" style="max-width: 80%">
     <h2>Shipments from <?= $controllers->suppliers()->get_supplier_by_id($supplierId)['name'] ?></h2> 
@@ -37,6 +42,7 @@ function round_to_2dp($num){
                 <th>Shipment Total</th>
                 <th>Ordered By</th>
                 <th>Order ID</th>
+                <th>Payment Term</th>
                 <th>Placed On</th>
                 <?php
                 //Check if admin, so that an extra Management column can appear next to each item
@@ -80,10 +86,9 @@ function round_to_2dp($num){
                     <td><?= htmlspecialchars_decode($shipment['quantity'], ENT_QUOTES) ?></td> 
                     <td>£<?= htmlspecialchars_decode(round_to_2dp($shipment['price']*$shipment['quantity']), ENT_QUOTES) ?></td> 
                     <td><?= htmlspecialchars_decode($restockUser['firstname']." ".$restockUser['lastname'], ENT_QUOTES)."<br>(".$restockUser['ID'].")"?></td> 
-                    <td><?= htmlspecialchars_decode($shipment['restock_id'], ENT_QUOTES) ?></td> 
+                    <td><?= htmlspecialchars_decode($shipment['restock_id'], ENT_QUOTES) ?></td>
+                    <td><?= htmlspecialchars_decode($shipment['payment_term'], ENT_QUOTES) ?></td> 
                     <td><?= htmlspecialchars_decode($restock['placedOn'], ENT_QUOTES) ?></td> 
-                   
-                    
                 </tr>
             <?php endforeach; ?>
         </tbody>

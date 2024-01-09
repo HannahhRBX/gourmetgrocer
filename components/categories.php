@@ -4,6 +4,7 @@ $userRole = RoutingController::verify_session_role();
 // Retrieve all equipment data using the catagory controller
 $catagories = $controllers->catagories()->get_all_catagories();
 ?>
+
 <!-- HTML for displaying the equipment inventory -->
 <div class="container mt-4">
     <h2>Category Management</h2> 

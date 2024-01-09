@@ -18,7 +18,9 @@ class RoutingController {
         if (session_id() == '' || !isset($_SESSION) || session_status() === PHP_SESSION_NONE)
         {
             $Result = self::redirect('login', ["error" => "You need to be logged in to view this page"]); // Verifies if the user is admin, if not then redirect them back to login page
-            
+        }elseif (!isset($_SESSION['user'])){
+            $Result = self::redirect('login', ["error" => "You need to be logged in to view this page"]); 
+        
         }elseif ($_SESSION['user']['role_id'] == 2){
             $Result = 'admin';
         }else{

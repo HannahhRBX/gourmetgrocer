@@ -38,6 +38,12 @@
         <a class="nav-link" href="./Suppliers.php">Suppliers</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="./Restocks.php">Restocks</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="./Orders.php">Orders</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="./Users.php">Users</a>
       </li>
       <li class="nav-item">

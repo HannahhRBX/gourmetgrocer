@@ -15,8 +15,8 @@ class restockController {
     {
         
         // SQL query to insert new restock shipment data into the shipments table
-        $sql = "INSERT INTO shipments(restock_id, equipment_id, price, quantity)
-        VALUES (:restock_id, :equipment_id, :price, :quantity);";
+        $sql = "INSERT INTO shipments(restock_id, equipment_id, price, quantity, payment_term)
+        VALUES (:restock_id, :equipment_id, :price, :quantity, :payment_term);";
         
         // Execute the SQL query with the provided shipment data
         $this->db->runSQL($sql, $shipment);
@@ -30,8 +30,8 @@ class restockController {
     {
         
         // SQL query to insert new restock data into the restocks table
-        $sql = "INSERT INTO restocks(user_id, payment_term)
-        VALUES (:user_id, :payment_term);";
+        $sql = "INSERT INTO restocks(user_id)
+        VALUES (:user_id);";
         
         // Execute the SQL query with the provided restock data
         $this->db->runSQL($sql, $restock);
@@ -63,14 +63,45 @@ class restockController {
         return $this->db->runSQL($sql)->fetchAll();
     }
 
-    // Method to retrieve a member role ID by its user ID
+    // Function to retrieve user_id from restock_id
+    public function get_userid_from_restockid($id)
+    {
+        // SQL query to select restock data by user_id
+        $sql = "SELECT user_id FROM restocks WHERE id = :id";
+        $args = ['id' => $id];
+        // Execute the query and return the fetched user_id record
+        return $this->db->runSQL($sql, $args)->fetch();
+    }
+
+    // Function to retrieve equipment_id from shipment_id
+    public function get_equipment_from_shipmentid($id)
+    {
+        // SQL query to select equipment data by shipment_id
+        $sql = "SELECT equipment_id FROM shipments WHERE id = :id";
+        $args = ['id' => $id];
+        // Execute the query and return the fetched equipment_id record
+        return $this->db->runSQL($sql, $args)->fetch();
+    }
+
+    // Method to retrieve all shipments by equipment ID
     public function get_all_shipments_by_equipmentid(int $id)
     {
-        // SQL query to get a user's role id from the roles table
+        // SQL query to get all shipments by equipment ID from shipments table
         
         $sql = "SELECT * FROM shipments WHERE equipment_id = :equipment_id";
         $args = ['equipment_id' => $id];
-        // Execute the query and return the fetched member record
+        // Execute the query and return the fetched shipment records
+        return $this->db->runSQL($sql, $args)->fetchAll();
+    }
+
+    // Method to retrieve all shipments by restock ID
+    public function get_all_shipments_by_restockid(int $id)
+    {
+        // SQL query to get all shipments by restock ID from shipments table
+        
+        $sql = "SELECT * FROM shipments WHERE restock_id = :restock_id";
+        $args = ['restock_id' => $id];
+        // Execute the query and return the fetched shipment records
         return $this->db->runSQL($sql, $args)->fetchAll();
     }
 

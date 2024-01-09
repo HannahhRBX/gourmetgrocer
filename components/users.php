@@ -10,6 +10,7 @@ $users = $controllers->members()->get_all_members();
     <h2>User Management</h2> 
     <table class="table table-striped"> 
             <tr>
+                <th>User ID</th> 
                 <th>First Name</th> 
                 <th>Last Name</th> 
                 <th>Email</th> 
@@ -28,7 +29,8 @@ $users = $controllers->members()->get_all_members();
         <tbody>
             <?php foreach ($users as $user): ?> <!-- Loop through each member, creating record in page table -->
                 <tr>
-                    
+
+                    <td><?= htmlspecialchars_decode($user['ID'], ENT_QUOTES) ?></td>
                     <td><?= htmlspecialchars_decode($user['firstname'], ENT_QUOTES) ?></td>
                     <td><?= htmlspecialchars_decode($user['lastname'], ENT_QUOTES) ?></td> 
                     <td><?= htmlspecialchars_decode($user['email'], ENT_QUOTES) ?></td> 

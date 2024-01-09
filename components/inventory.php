@@ -21,6 +21,11 @@ function GetItemQuantity($ItemId){
 
 
 ?>
+<style>
+table, th, td {
+  text-align: center;
+}
+</style>
 <!-- HTML for displaying the equipment inventory -->
 <div class="container" style="max-width: 95%">
     <h2>Store Inventory</h2> 
@@ -86,9 +91,9 @@ function GetItemQuantity($ItemId){
                     <td>
                       <?php if ($userRole == "admin"){
                         ?>
-                        <form action="./AddToCart.php" method="post" style="padding-right: 10px; float: left;">
-                        <button class="btn btn-success btn-md w-40 mb-4" type="submit" id="addButton" style="margin-right: 7px;" >Restock</button>
-                        <input type="number" value="<?= GetItemQuantity($equip['id']) ?>" min="0" class="form-control" name="ItemQuantity" id="ItemQuantity" style="width: 80px; float: right;">
+                        <form action="./AddToCart.php" method="post">
+                        <button class="btn btn-success btn-md w-40 mb-4" type="submit" id="addButton" >Restock</button>
+                        <input type="number" value="<?= GetItemQuantity($equip['id']) ?>" min="0" class="form-control" name="ItemQuantity" id="ItemQuantity" style="width: 80px; margin-left: -25px; float: right;">
                         <input type="hidden" name="header" value="Inventory.php">
                         <input type="hidden" name="actionType" value="addCart">
                         <input type="hidden" name="objectId" value="<?= $equip['id']; ?>">
@@ -96,9 +101,9 @@ function GetItemQuantity($ItemId){
                         <?php
                       }else{
                         ?>
-                      <form action="./AddToCart.php" method="post" style="padding-right: 10px; float: left;">
-                        <button class="btn btn-success btn-md w-40 mb-4" type="submit" id="addButton" style="margin-right: 7px;" >Add to Cart</button>
-                        <input type="number" value="<?= GetItemQuantity($equip['id']) ?>" min="0" max="<?= $equip['stock'] ?>" class="form-control" name="ItemQuantity" id="ItemQuantity" style="width: 80px; float: right;">
+                      <form action="./AddToCart.php" method="post">
+                        <button class="btn btn-success btn-md w-40 mb-4" type="submit" id="addButton" >Add to Cart</button>
+                        <input type="number" value="<?= GetItemQuantity($equip['id']) ?>" min="0" max="<?= $equip['stock'] ?>" class="form-control" name="ItemQuantity" id="ItemQuantity" style="width: 80px; margin-left: -40px; float: right;">
                         <input type="hidden" name="header" value="Inventory.php">
                         <input type="hidden" name="actionType" value="addCart">
                         <input type="hidden" name="objectId" value="<?= $equip['id']; ?>">

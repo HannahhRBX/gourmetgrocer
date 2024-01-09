@@ -1,4 +1,6 @@
-<?php $title = 'Login Page'; require __DIR__ . "/inc/header.php"; ?>
+<?php
+$loggedOut = true;
+$title = 'Login Page'; require __DIR__ . "/inc/header.php"; ?>
      
 <?php require __DIR__ . "/components/login-form.php"; ?>
 

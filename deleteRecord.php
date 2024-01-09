@@ -1,6 +1,6 @@
 
 <?php 
-require __DIR__ . "/inc/functions.php";
+
 $userRole = RoutingController::verify_session_role();
 // Check if the user is admin before deleting
 if ($userRole == 'admin'){

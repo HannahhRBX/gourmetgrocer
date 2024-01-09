@@ -1,5 +1,4 @@
 <?php 
-    require_once __DIR__.'/../inc/functions.php';
     $member = $controllers->equipment()->get_all_equipments();
     $post_arr = array();
     $post_arr['data'] = array();

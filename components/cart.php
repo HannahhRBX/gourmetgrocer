@@ -10,7 +10,23 @@ function round_to_2dp($num){
   return number_format((float)$num, 2, '.', ''); // Returns a number rounded to 2 decimal places
 }
 
+if ($equipment != array()){
 ?>
+<!-- Button for Complete Order at top of page -->
+<div class="container" style="padding-top: 30px;">
+<div class="col-md-12 text-center">
+    <div class="col-12 col-md-12">
+    <form method="post" action="./createRecord.php">
+    <input type="hidden" name="objectType" value="order">
+    <button type="submit" class="btn btn-success btn-lg w-80 mb-4">Complete Order</button>
+    </form>
+    </div>
+  </div>
+</div>
+<?php
+}
+?>
+<br>
 <!-- HTML for displaying the equipment inventory -->
 <div class="container" style="max-width: 95%">
     <h2>Order Details</h2> 

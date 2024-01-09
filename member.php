@@ -1,16 +1,35 @@
 <?php 
     session_start(); 
-    require_once __DIR__.'/./inc/functions.php';
-    
-    //if (!isset($_SESSION['user']))
-   // {
-    //    redirect('login', ["error" => "You need to be logged in to view this page"]);
-   // }
-   //echo var_dump($_SESSION);
     $title = 'Member Page'; 
     require __DIR__.'/./inc/header.php'; 
 ?>
+<br>
+<br>
 
 <h1>Welcome <?= $_SESSION['user']['firstname'] ?? 'Member' ?>!</h1>
+<h4>Use the navigation bar or click <a href="./Inventory.php" class="link-primary">here</a> to browse products.</h4>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 <?php require __DIR__.'/./inc/footer.php'; ?>

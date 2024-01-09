@@ -1,6 +1,6 @@
 
-<?php 
-require __DIR__ . "/inc/functions.php";
+<?php $title = 'Login Page'; require __DIR__ . "/inc/header.php";
+
 $userRole = RoutingController::verify_session_role();
 
 

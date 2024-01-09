@@ -4,7 +4,7 @@
 session_unset(); 
 
 // Include the functions file for utility functions
-require getcwd().'/inc/functions.php';
+
 
 // Initialize variables for message, email, and password
 $message = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : '';

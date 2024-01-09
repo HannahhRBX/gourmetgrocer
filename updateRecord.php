@@ -1,6 +1,5 @@
 
 <?php 
-require __DIR__ . "/inc/functions.php";
 $userRole = RoutingController::verify_session_role();
 
 

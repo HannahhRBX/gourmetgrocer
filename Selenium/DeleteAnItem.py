@@ -36,7 +36,7 @@ EnterByPlaceholder('Email','admin@gmail.com')
 EnterByPlaceholder('Password','Password123!')
 #ClickByText('a','Already got an account?') #This Clicks elements that are not of button class
 ClickButtonByText('Login')
-ClickByText('a','Inventory Management') #href buttons require a class instead of button, therefore needing clickByText function
+ClickByText('a','Inventory') #href buttons require a class instead of button, therefore needing clickByText function
 ClickButtonByText('Delete')
 ClickByID('DeleteItem') #Cannot do same as above due to conflict
 

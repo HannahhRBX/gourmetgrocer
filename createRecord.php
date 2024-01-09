@@ -1,6 +1,6 @@
 
 <?php 
-require __DIR__ . "/inc/functions.php";
+
 $userRole = RoutingController::verify_session_role();
 if ($userRole == 'admin'){
     if ($_SERVER['REQUEST_METHOD'] == 'POST')

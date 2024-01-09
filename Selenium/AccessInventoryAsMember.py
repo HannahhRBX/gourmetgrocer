@@ -28,5 +28,5 @@ EnterByPlaceholder('Email','admin@gmail.com')
 EnterByPlaceholder('Password','Password123!')
 #ClickByText('a','Already got an account?') #This Clicks elements that are not of button class
 ClickButtonByText('Login')
-ClickButtonByText('Inventory Management')
+ClickButtonByText('Inventory')
 time.sleep(60) #Prevent software from exiting immediately

@@ -122,7 +122,7 @@ if ($userRole == 'admin'){
 <?php
 }
 
-
+RoutingController::verify_member_is_admin();
 require __DIR__ . "/components/roles.php";
 require __DIR__ . "/inc/footer.php"; 
 ?>

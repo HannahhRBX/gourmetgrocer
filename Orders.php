@@ -4,18 +4,12 @@
 <?php 
 
 
-$userRole = RoutingController::verify_session_role();
-if ($userRole == 'admin'){
-    
-
+RoutingController::verify_member_is_admin();
 ?>
 
 <br>
 
 <?php
 require __DIR__ . "/components/orders.php";
-}
-
-
 require __DIR__ . "/inc/footer.php"; 
 ?>

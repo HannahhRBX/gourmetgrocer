@@ -164,6 +164,17 @@ class equipmentController {
         // Execute the update query with the provided equipment_catagory data
         return $this->db->runSQL($sql, $Ids)->execute();
     }
+
+    // Function to update equipment stock quantity in the database
+    public function update_equipment_stock(array $equipment)
+    {
+        // SQL query to update equipment data
+        $sql = "UPDATE equipments SET stock = :stock WHERE id = :id";
+        
+        // Execute the update query with the provided equipment data
+        return $this->db->runSQL($sql, $equipment)->execute();
+    }
+
     // Function to update an existing equipment entry in the database
     public function update_equipment(array $equipment)
     {

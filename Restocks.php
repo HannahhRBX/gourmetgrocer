@@ -3,18 +3,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <?php 
 
-$userRole = RoutingController::verify_session_role();
-if ($userRole == 'admin'){
-    
-
+RoutingController::verify_member_is_admin();
 ?>
 
 <br>
 
 <?php
 require __DIR__ . "/components/restocks.php";
-}
-
-
 require __DIR__ . "/inc/footer.php"; 
 ?>

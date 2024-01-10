@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
 <?php
 
 
-
+RoutingController::verify_member_is_admin();
 require __DIR__ . "/components/restockDetails.php";
 require __DIR__ . "/inc/footer.php"; 
 ?>

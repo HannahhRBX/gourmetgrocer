@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
     }
 }
 
+RoutingController::verify_member_is_admin();
 require __DIR__ . "/components/shipments.php";
 require __DIR__ . "/inc/footer.php"; 
 ?>

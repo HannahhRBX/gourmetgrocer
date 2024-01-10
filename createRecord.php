@@ -55,6 +55,7 @@ if ($userRole == 'admin'){
                 $equip = $controllers->equipment()->get_equipment_by_id($id);
                 $price = $equip['buy_price'];
                 $newShipment = $controllers->restocks()->create_shipment(array('restock_id'=>$RestockId,'equipment_id'=>$id,'price'=>$price,'quantity'=>$quantity,'payment_term'=>$paymentTerm));
+                $updateStock = $controllers->equipment()->update_equipment_stock(array('id'=>$equip['id'],'stock'=>$equip['stock']+$quantity));
             }
            
             header("Location: OrderComplete.php?".$RestockId); //Direct user to chosen header based on created item type
@@ -79,6 +80,7 @@ if ($userRole == 'admin'){
                 $price = $equip['sell_price'];
                 echo $price;
                 $newOrderCart = $controllers->orders()->create_order_cart(array('order_id'=>$OrderId,'equipment_id'=>$id,'price'=>$price,'quantity'=>$quantity));
+                $updateStock = $controllers->equipment()->update_equipment_stock(array('id'=>$equip['id'],'stock'=>$equip['stock']-$quantity));
             }
            
             header("Location: OrderComplete.php?".$OrderId); //Direct user to chosen header based on created item type

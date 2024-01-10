@@ -80,6 +80,7 @@ if ($userRole == 'admin'){
 </div>
 
 <?php
+RoutingController::verify_member_is_admin();
 require __DIR__ . "/components/users.php";
 require __DIR__ . "/inc/footer.php"; 
 ?>

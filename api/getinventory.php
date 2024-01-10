@@ -1,4 +1,5 @@
 <?php 
+    require_once __DIR__.'/../inc/functions.php';
     $member = $controllers->equipment()->get_all_equipments();
     $post_arr = array();
     $post_arr['data'] = array();
@@ -24,7 +25,7 @@
                 $catagory = array("name"=>"");
             }
 
-            $record['catagory'] = htmlspecialchars_decode($catagory['name'], ENT_QUOTES);;
+            $record['catagory'] = htmlspecialchars_decode($catagory['name'], ENT_QUOTES);
             array_push($post_arr['data'],$record);
         }
         echo json_encode($post_arr); //push to data table by conversion to JSON encode

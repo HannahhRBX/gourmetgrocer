@@ -15,6 +15,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
                 <div class="card-body text-white"><h5>Your order number is #<?php echo $getInfo; ?> and has been processed successfully.</h5></div>
             </div>
         </div>
+        <br>
+        <div class="row d-flex justify-content-center" style="width: 100%;">
+            <div class="row d-flex justify-content-center " style="width: 40%;">
+            <form action="./RestockDetails.php" method="get">
+                <button class="btn btn-primary btn-lg w-80 mb-4" type="submit" id="AdminInventory">View Order</button>
+                <input type="hidden" name="orderId" value="<?= $getInfo ?>">
+            </form>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
     <?php
     $_SESSION['user']['cart'] = array();
     }

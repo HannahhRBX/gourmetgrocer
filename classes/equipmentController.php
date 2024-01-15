@@ -9,40 +9,99 @@ class equipmentController {
     {
         $this->db = $db;
     }
-    public function upload_image(array $addItemImage)
+
+    public function upload_image(array $addItemImage) // Function to upload an image
     {
         $fileName = $addItemImage['name'];
-        $fileTmpName = $addItemImage['tmp_name'];
+        $fileTmpName = $addItemImage['tmp_name']; // Get temporary directory
         $fileSize = $addItemImage['size'];
         $fileError = $addItemImage['error'];
-
         $fileExt = explode('.',$fileName);
-        $fileActualExt = strtolower(end($fileExt));
-
+        $fileActualExt = strtolower(end($fileExt)); // Get extension from file
         $allowed = array('jpg','jpeg','png');
-        $fileResult = array("Status"=>"","Destination"=>"");
-        if (in_array($fileActualExt, $allowed)){
-            if ($fileError === 0){
-               
-                if ($fileSize < 10000000){ // If file is less than 10MB
-                    $fileNameNew = uniqid('',true).".".$fileActualExt;
-                    $fileDestination = 'images/'.$fileNameNew;
-                    move_uploaded_file($fileTmpName,$fileDestination);
-                    
-                    $fileResult = array("Status"=>"Success","Destination"=>$fileDestination);
+        $fileResult = array("Status"=>"","Destination"=>""); // Create array for destination of file with return status
 
+        if (in_array($fileActualExt, $allowed)){ // Checks if the file extension is in the allowed extension array
+            if ($fileError === 0){ // Check for no error
+                if ($fileSize < 10000000){ // If file is less than 10MB
+                    $fileNameNew = uniqid('',true).".".$fileActualExt; // Create unique file name using random seed from os time
+                    $fileDestination = 'images/'.$fileNameNew;
+                    move_uploaded_file($fileTmpName,$fileDestination);  // Move new file to target destination
+                    $fileResult = array("Status"=>"Success","Destination"=>$fileDestination);
                 }else{
                     $fileResult["Status"] = "Your image is too large. Please upload a smaller image.";
                 }
             }else{
                 $fileResult["Status"] = "There was an error uploading the image.";
             }
-
         }else{
             $fileResult["Status"] = "You cannot upload files of this type.";
-        }
+        } // Return fileresult with status if failed
         return $fileResult;
     }
+
+    // Function to add item to session cart by ID
+    public function AddToCart(int $objectId, int $objectQuantity)
+    {
+        if ($objectId > 0){ // Make sure number is valid
+            if (isset($_SESSION['user'])){
+                if (!isset($_SESSION['user']['cart'])){ //Check if user already has a cart, if not create one
+                    $_SESSION['user']['cart'] = array();
+                }
+                $foundItem = false;
+                foreach ($_SESSION['user']['cart'] as $index=>$Item){ // For loop to check if item is already in order
+                   
+                    if ($Item['id'] == $objectId){
+                        $foundItem = true;
+                        $_SESSION['user']['cart'][$index]['quantity'] = $objectQuantity; // If Item is found in order, add additional quantity to it
+                        if ($_SESSION['user']['role_id'] == 2){
+                            $message = "Order%20Updated%20Successfully";
+                        }else{
+                            $message = "Cart%20Updated%20Successfully";
+                        }
+                    }
+                }
+                if ($foundItem == false){
+                    if ($_SESSION['user']['role_id'] == 2){ // If user is admin
+                        $message = "Added%20to%20Order";
+                    }else{
+                        $message = "Added%20to%20Cart";
+                    }
+                    array_push($_SESSION['user']['cart'],array('id'=>$objectId,'quantity'=>$objectQuantity)); //Add item to cart
+                }
+            }else{
+                $message = "Please%20Login"; // Not logged in
+            }
+        }else{
+            $message = "Invalid%20Item.%20Please%20try%20again."; // Invalid if item is not recognised
+        }
+        return $message;
+    }
+
+    // Function to remove item from session cart by ID
+    public function DeleteFromCart($objectId)
+    {
+        $message = "Item%20not%20found.";
+        if ($objectId > 0){ // Make sure number is valid
+            if (isset($_SESSION['user'])){
+                if (!isset($_SESSION['user']['cart'])){ //Check if user already has a cart, if not create one
+                    $_SESSION['user']['cart'] = array();
+                }   
+                foreach ($_SESSION['user']['cart'] as $index=>$Item){ // For loop to check if item is already in order
+                    if ($Item['id'] == $objectId){
+                        unset($_SESSION['user']['cart'][$index]);
+                        $message = "Item%20Removed%20Successfully";
+                    }
+                }
+            }else{
+                $message = "Please%20Login"; // Not logged in
+            }
+        }else{
+            $message = "Invalid%20Item.%20Please%20try%20again."; // Invalid if item is not recognised
+        }
+        return $message;
+    }
+
 
     // Function to add an equipment id and catagory id into the equipment_catagories table
     public function add_equipment_to_catagory(array $Ids){

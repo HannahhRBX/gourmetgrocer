@@ -29,7 +29,6 @@ if ($userRole == 'admin'){
                 // Download Image File to Root Directory/Images
                 $fileResult = $controllers->equipment()->upload_image($ItemImage);
                 if ($fileResult["Status"] == "Success"){
-                    
                     $equipmentArray = array('id'=>$objectId,'name'=>$ItemName,'description'=>$ItemDescription,'stock'=>$ItemStock,'buy_price'=>$ItemBuyPrice,'sell_price'=>$ItemSellPrice,'image'=>$fileResult["Destination"]);
                 }else{
                     // Give error code if upload fails
@@ -38,7 +37,6 @@ if ($userRole == 'admin'){
             }else{
                 // Update the record without changing the image file
                 $equipmentArray = array('id'=>$objectId,'name'=>$ItemName,'description'=>$ItemDescription,'stock'=>$ItemStock,'buy_price'=>$ItemBuyPrice,'sell_price'=>$ItemSellPrice,'image'=>$previousImage);
-                
             }
             // Check if equipment array is set and no errors given, then update record in database
             if (isset($equipmentArray)){

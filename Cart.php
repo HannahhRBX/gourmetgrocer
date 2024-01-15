@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
     if ($getInfo != ''){
         if (str_contains($getInfo,"Success") || str_contains($getInfo,"Added")){
 
-            // Display green status message if the word 'Success' is in the URL GET request
+            // Display green status message if the word 'Success' or 'Added' is in the URL GET request
             ?>
             <div class="text-bg-success p-3">
                 <div class="card bg-success text-center">

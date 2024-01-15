@@ -78,7 +78,6 @@ if ($userRole == 'admin'){
                 $quantity = $equip['quantity'];
                 $equip = $controllers->equipment()->get_equipment_by_id($id);
                 $price = $equip['sell_price'];
-                echo $price;
                 $newOrderCart = $controllers->orders()->create_order_cart(array('order_id'=>$OrderId,'equipment_id'=>$id,'price'=>$price,'quantity'=>$quantity));
                 $updateStock = $controllers->equipment()->update_equipment_stock(array('id'=>$equip['id'],'stock'=>$equip['stock']-$quantity));
             }

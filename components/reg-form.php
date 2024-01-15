@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   
   // Validate all inputs
   $valid = $fname['valid'] && $sname['valid'] && $email['valid'] && $password['valid'];
-
   // Set an error message if any input is invalid
   $message = !$valid ? "Please fix the above errors:" : '';
 
@@ -28,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
              'lastname' => $sname['value'],
              'email' => $email['value'],
              'password' => password_hash($password['value'], PASSWORD_DEFAULT)];
-
     // Register the member
     $member = $controllers->members()->register_member($args);
     if ($member) {
@@ -38,9 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       // Set error message if email is already registered
       $message = "Email already registered.";
     }
-    
   }
-
 }
 ?>
 

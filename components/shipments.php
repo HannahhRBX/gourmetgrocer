@@ -1,15 +1,19 @@
 <?php
 // Check if user is member or admin to display management columns
 $userRole = RoutingController::verify_session_role();
-// Retrieve all role data using the role controller
 
+
+/* A Supplier can have many equipments, and equipments can have many shipments,
+this page is to list all shipments linked to a single Supplier ID */
 $equipmentIds = $controllers->equipment()->get_all_equipments_by_supplierid($supplierId);
 $shipments = array();
-//echo var_dump($equipmentIds);
+// Get all Equipments linkked to a Supplier ID
 foreach ($equipmentIds as $index=>$equipmentId){
+  // Get all Shipments linked to an Equipment ID
   $getShipments = $controllers->restocks()->get_all_shipments_by_equipmentid($equipmentId['equipment_id']);
   if ($getShipments != null){
     foreach ($getShipments as $shipment){
+      // Add shipment Details to Shipments Array
       array_push($shipments,$shipment);
     }
   }

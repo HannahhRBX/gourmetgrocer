@@ -31,14 +31,14 @@ table, th, td {
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($restocks as $restock): ?> <!-- Loop through each supplier item -->
+            <?php foreach ($restocks as $restock): ?> <!-- Loop through each restock item -->
                 <tr>
                     <?php
-                    $user = $controllers->members()->get_member_by_id($restock['user_id']);
-                    $getShipments = $controllers->restocks()->get_all_shipments_by_restockid($restock['id']);
+                    $user = $controllers->members()->get_member_by_id($restock['user_id']); // Get User from Restock order ID
+                    $getShipments = $controllers->restocks()->get_all_shipments_by_restockid($restock['id']); // Get all shipments from a restock
                     $orderTotal = 0;
                     $orderQuantity = 0;
-                    foreach ($getShipments as $shipment){
+                    foreach ($getShipments as $shipment){ // Get values to display total cost and quantity of order in 2 columns
                       $orderTotal += ($shipment['price']*$shipment['quantity']);
                       $orderQuantity += $shipment['quantity'];
                     }

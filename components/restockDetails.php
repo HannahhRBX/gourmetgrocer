@@ -3,6 +3,7 @@
 $userRole = RoutingController::verify_session_role();
 // Retrieve all role data using the role controller
 
+// Retrieve user data and all shipments linked to a restock order
 $shipments = $controllers->restocks()->get_all_shipments_by_restockid($orderId);
 $userId = $controllers->restocks()->get_userid_from_restockid($orderId);
 $userDetails = $controllers->members()->get_member_by_id($userId['user_id']);

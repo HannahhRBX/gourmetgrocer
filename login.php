@@ -1,7 +1,18 @@
 <?php
 $loggedOut = true;
-$title = 'Login Page'; require __DIR__ . "/inc/header.php"; ?>
+// Start the session to maintain user state
+// Clear all session variables
+session_unset(); 
+$title = 'Login Page'; require __DIR__ . "/inc/header.php";
      
-<?php require __DIR__ . "/components/login-form.php"; ?>
+require __DIR__ . "/components/login-form.php";
+?>
 
-<?php require __DIR__ . "/inc/footer.php"; ?>
+<style>
+body {
+    background-image: url('/images/BackgroundImage.jpg');
+    background-color: #ffffff;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+</style>

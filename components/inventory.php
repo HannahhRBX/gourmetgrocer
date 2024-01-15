@@ -62,23 +62,24 @@ table, th, td {
                     </td>
                     <td><?= htmlspecialchars_decode($equip['name'], ENT_QUOTES) ?></td> 
                     <?php 
-                    $catagoryId = $controllers->equipment()->get_catagory_by_equipmentid($equip['id']);
-                    if ($catagoryId != null){
-                      $catagoryId = $catagoryId["catagory_id"];
-                      $catagory = $controllers->catagories()->get_catagory_by_id($catagoryId);
-                    }else{
-                      $catagoryId = 1;
-                      $catagory = array("name"=>"");
-                    }
-
-                    $supplierId = $controllers->equipment()->get_supplier_by_equipmentid($equip['id']);
-                    if ($supplierId != null){
-                      $supplierId = $supplierId["supplier_id"];
-                      $supplier = $controllers->suppliers()->get_supplier_by_id($supplierId);
-                    }else{
-                      $supplierId = 1;
-                      $supplier = array("name"=>"");
-                    }
+                      // Get an Equipment's Category ID
+                      $catagoryId = $controllers->equipment()->get_catagory_by_equipmentid($equip['id']);
+                      if ($catagoryId != null){
+                        $catagoryId = $catagoryId["catagory_id"];
+                        $catagory = $controllers->catagories()->get_catagory_by_id($catagoryId);
+                      }else{ // If Category is blank, set it to default ID of 1 to show blank in Inventory UI
+                        $catagoryId = 1;
+                        $catagory = array("name"=>"");
+                      }
+                      // Get an Equipment's Supplier ID
+                      $supplierId = $controllers->equipment()->get_supplier_by_equipmentid($equip['id']);
+                      if ($supplierId != null){
+                        $supplierId = $supplierId["supplier_id"];
+                        $supplier = $controllers->suppliers()->get_supplier_by_id($supplierId);
+                      }else{ // If Supplier is blank, set it to default ID of 1 to show blank in Inventory UI
+                        $supplierId = 1;
+                        $supplier = array("name"=>"");
+                      }
                    
                     ?>
                     <td><?= htmlspecialchars_decode($catagory['name'], ENT_QUOTES) ?></td> 
@@ -118,32 +119,32 @@ table, th, td {
                         ?>
                         <td style="width: 200px"><div class="container">
                         <form action="./Inventory.php" method="post" style="padding-right: 10px; float: left;">
-                        <button class="btn btn-danger btn-md w-40 mb-4" type="submit" id="deleteButton">Delete</button>
-                        <!-- Create hidden HTML variables to pass into the database processing form when submitted -->
-                        <input type="hidden" name="actionType" value="delete">
-                        <input type="hidden" name="objectId" value="<?= $equip['id']; ?>">
-                        <input type="hidden" name="objectName" value="<?= $equip['name']; ?>">
-                        <input type="hidden" name="objectCatagoryId" value="<?= $catagoryId; ?>">
-                        <input type="hidden" name="objectSupplierId" value="<?= $supplierId; ?>">
-                        <input type="hidden" name="objectStock" value="<?= $equip['stock']; ?>">
-                        <input type="hidden" name="objectBuyPrice" value="<?= $equip['buy_price']; ?>">
-                        <input type="hidden" name="objectSellPrice" value="<?= $equip['sell_price']; ?>">
-                        <input type="hidden" name="objectDescription" value="<?= $equip['description']; ?>">
-                        <input type="hidden" name="objectImage" value="<?= $equip['image']; ?>">
+                          <button class="btn btn-danger btn-md w-40 mb-4" type="submit" id="deleteButton">Delete</button>
+                          <!-- Create hidden HTML variables to pass into the database processing form when submitted -->
+                          <input type="hidden" name="actionType" value="delete">
+                          <input type="hidden" name="objectId" value="<?= $equip['id']; ?>">
+                          <input type="hidden" name="objectName" value="<?= $equip['name']; ?>">
+                          <input type="hidden" name="objectCatagoryId" value="<?= $catagoryId; ?>">
+                          <input type="hidden" name="objectSupplierId" value="<?= $supplierId; ?>">
+                          <input type="hidden" name="objectStock" value="<?= $equip['stock']; ?>">
+                          <input type="hidden" name="objectBuyPrice" value="<?= $equip['buy_price']; ?>">
+                          <input type="hidden" name="objectSellPrice" value="<?= $equip['sell_price']; ?>">
+                          <input type="hidden" name="objectDescription" value="<?= $equip['description']; ?>">
+                          <input type="hidden" name="objectImage" value="<?= $equip['image']; ?>">
                         </form>
                         <form action="./Inventory.php" method="post" style="float: left;">
-                        <button class="btn btn-warning btn-md w-40 mb-4" type="submit" id="editButton">Edit</button>
-                        <!-- Create hidden HTML variables to pass into the database processing form when submitted -->
-                        <input type="hidden" name="actionType" value="edit">
-                        <input type="hidden" name="objectId" value="<?= $equip['id']; ?>">
-                        <input type="hidden" name="objectName" value="<?= $equip['name']; ?>">
-                        <input type="hidden" name="objectCatagoryId" value="<?= $catagoryId; ?>">
-                        <input type="hidden" name="objectSupplierId" value="<?= $supplierId; ?>">
-                        <input type="hidden" name="objectStock" value="<?= $equip['stock']; ?>">
-                        <input type="hidden" name="objectBuyPrice" value="<?= $equip['buy_price']; ?>">
-                        <input type="hidden" name="objectSellPrice" value="<?= $equip['sell_price']; ?>">
-                        <input type="hidden" name="objectDescription" value="<?= $equip['description']; ?>">
-                        <input type="hidden" name="objectImage" value="<?= $equip['image']; ?>">
+                          <button class="btn btn-warning btn-md w-40 mb-4" type="submit" id="editButton">Edit</button>
+                          <!-- Create hidden HTML variables to pass into the database processing form when submitted -->
+                          <input type="hidden" name="actionType" value="edit">
+                          <input type="hidden" name="objectId" value="<?= $equip['id']; ?>">
+                          <input type="hidden" name="objectName" value="<?= $equip['name']; ?>">
+                          <input type="hidden" name="objectCatagoryId" value="<?= $catagoryId; ?>">
+                          <input type="hidden" name="objectSupplierId" value="<?= $supplierId; ?>">
+                          <input type="hidden" name="objectStock" value="<?= $equip['stock']; ?>">
+                          <input type="hidden" name="objectBuyPrice" value="<?= $equip['buy_price']; ?>">
+                          <input type="hidden" name="objectSellPrice" value="<?= $equip['sell_price']; ?>">
+                          <input type="hidden" name="objectDescription" value="<?= $equip['description']; ?>">
+                          <input type="hidden" name="objectImage" value="<?= $equip['image']; ?>">
                         </form>
                             
                         

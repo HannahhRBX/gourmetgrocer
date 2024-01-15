@@ -1,6 +1,7 @@
 <?php
+    ob_start();
     // Check if session is already running before starting
-    if (session_id() == '' || !isset($_SESSION) || session_status() === PHP_SESSION_NONE){
+    if (session_id() == '' || !isset($_SESSION['user']) || session_status() === PHP_SESSION_NONE){
         session_start();
     }
     

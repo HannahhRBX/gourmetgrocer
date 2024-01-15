@@ -1,12 +1,8 @@
 <?php
-// Start the session to maintain user state
-// Clear all session variables
-session_unset(); 
-
-// Include the functions file for utility functions
 
 
-// Initialize variables for message, email, and password
+/* Functions file is included in parent login.php file for session start and controller functions
+  Initialize variables for message, email, and password */
 $message = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : '';
 $email = null;
 $password = null;
@@ -17,16 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     // Process the submitted email and password
     $email = InputProcessor::processEmail($_POST['email']);
     $password = InputProcessor::processPassword($_POST['password']);
-
     // Check if both email and password are valid
     $valid = $email['valid'] && $password['valid'];
-
     // If valid, attempt to log in the member
     if ($valid) {
-  
       // Call the login function from the member controller
       $member = $controllers->members()->login_member($email['value'], $password['value']);
-
       // Check if login was successful
       if (!$member) {
         // Set error message if login failed
@@ -35,18 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
          // Set user session data on successful login
          $_SESSION['user'] = $member;
          $_SESSION['user']['cart'] = array();
-         //echo var_dump($member), $member['user_type'];
          // Redirect based on user type
-         echo var_dump($member);
          if ($member['role_id'] == 2) {
           RoutingController::redirect('.\AdminPanel'); // Redirect admin users
-          
-
           } else {
             RoutingController::redirect('member'); // Redirect non-admin users
           }
       }
-
     }
     else {
        // Set error message for invalid input

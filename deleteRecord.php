@@ -27,9 +27,11 @@ if ($userRole == 'admin'){
             $header = "Suppliers.php";
         }
         header("Location: ".$header."?Deletion%20Success");
-        // Process the submitted form data
+        // Send the user back to the relevant page by assigned header variable
         
         
     }
 }
 ?>
+
+

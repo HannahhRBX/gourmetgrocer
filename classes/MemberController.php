@@ -113,6 +113,7 @@ class MemberController {
             // Execute the query with the provided member data
             $this->db->runSQL($sql, $member);
 
+            // Initialise role as 'User' on signup
             $sql2 = "INSERT INTO user_roles (user_id, role_id)
                     VALUES (LAST_INSERT_ID(), (SELECT id FROM roles WHERE name = 'User'));";
            $this->db->runSQL($sql2);
